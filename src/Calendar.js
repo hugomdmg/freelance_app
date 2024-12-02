@@ -33,7 +33,7 @@ const Dates = ({ selectedProject }) => {
             <Calendar
                 onChange={setCalendarDate}
                 value={calendarDate}
-                className="w-1/3 flex flex-col bg-white dark:bg-gray-800 shadow-md rounded-lg p-6"
+                className="w-1/3 flex flex-col dark:bg-gray-800 shadow-md rounded-lg p-6"
                 tileClassName={highlightDates}
 
             />
@@ -41,7 +41,21 @@ const Dates = ({ selectedProject }) => {
                 `.highlighted-date {
                     background-color: green;
                     color: black;
-                }`
+                }
+                .react-calendar {
+                    background-color: #d7e9e3;
+                    color: #204051;
+                }
+                .react-calendar__tile:enabled:hover,
+                .react-calendar__tile:enabled:focus {
+                    background: #c9dcd6;
+                    color: #204051;
+                }
+                .highlighted-date {
+                    background-color: #9a3c3c;
+                    color: #ffffff;
+                }   
+                `
             }</style>
         </>
     )

@@ -38,32 +38,31 @@ const CostumerMain = () => {
 
   return (
     <>
-      {/* Contenedor principal */}
-      <div className="flex p-8 bg-gray-100 dark:bg-gray-900 space-x-8">
+      <div className="flex p-8 bg-[#f4f4f2] dark:bg-gray-900 space-x-8">
         {/* Lista de proyectos */}
-        <div className="flex-1 bg-white dark:bg-gray-800 shadow-md rounded-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">Project List</h2>
-          <table className="w-full border-collapse border border-gray-300 dark:border-gray-600">
+        <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
+          <h2 className="text-2xl font-bold text-[#3c6e71] dark:text-gray-200 mb-4">Project List</h2>
+          <table className="w-full border-collapse border border-[#a3c4bc] dark:border-gray-600">
             <thead>
-              <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                <th className="p-2 border border-gray-300 dark:border-gray-600 text-left">Project Name</th>
-                <th className="p-2 border border-gray-300 dark:border-gray-600 text-left">Status</th>
+              <tr className="bg-[#a3c4bc] dark:bg-gray-700 text-[#204051] dark:text-gray-300">
+                <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Project Name</th>
+                <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Status</th>
               </tr>
             </thead>
             <tbody>
               {projects.map((project, index) => (
                 <tr
                   key={index}
-                  className="cursor-pointer even:bg-gray-100 dark:even:bg-gray-700 odd:bg-white dark:odd:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-700"
+                  className="cursor-pointer even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800 hover:bg-[#c9dcd6] dark:hover:bg-gray-700"
                   onClick={() => setSelectedProject(project)}
                 >
-                  <td className="p-2 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-300">
+                  <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-[#204051] dark:text-gray-300">
                     {project.name}
                   </td>
                   <td
-                    className={`p-2 border border-gray-300 dark:border-gray-600 text-sm font-semibold ${project.status === 'Finished'
-                      ? 'text-green-600 dark:text-green-400'
-                      : 'text-red-600 dark:text-red-400'
+                    className={`p-2 border border-[#a3c4bc] dark:border-gray-600 text-sm font-semibold ${project.status === 'Finished'
+                      ? 'text-[#3c6e71] dark:text-green-400'
+                      : 'text-[#9a3c3c] dark:text-red-400'
                       }`}
                   >
                     {project.status}
@@ -74,68 +73,89 @@ const CostumerMain = () => {
           </table>
           <div className="flex mt-4">
             <a
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200">
+              className="px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
+            >
               Nuevo Proyecto
             </a>
           </div>
         </div>
-
-        {/* Chat */}
         <Chat />
       </div>
 
       {/* Detalles del proyecto seleccionado */}
-      <div className="flex p-8 bg-gray-100 dark:bg-gray-900 space-x-8">
-        <div className="flex-1 bg-white dark:bg-gray-800 shadow-md rounded-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+      <div className="flex p-8 bg-[#f4f4f2] dark:bg-gray-900 space-x-8">
+        <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
+          <h2 className="text-2xl font-bold text-[#3c6e71] dark:text-gray-200 mb-4">
             {selectedProject.name}
           </h2>
-          <ul className="space-y-2">
-            <li>
-              <span className="font-semibold">Production Link: </span>
-              <a
-                href={selectedProject.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 underline"
-              >
-                {selectedProject.link}
-              </a>
-            </li>
-            <li>
-              <span className="font-semibold">Next Meeting: </span>
-              {selectedProject.dates[0]}
-            </li>
-            <li>
-              <span className="font-semibold">Pending Payments: </span>
-              ${selectedProject.missingPayment}{' '}
-              <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                Make Payment
-              </button>
-            </li>
-            <li>
-              <span className="font-semibold">Total Paid: </span>${selectedProject.totalPaid}
-            </li>
-            <li>
-              <span className="font-semibold">Trello Link: </span>
-              {selectedProject.trelloLink ? (
-                <a
-                  href={selectedProject.trelloLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  {selectedProject.trelloLink}
-                </a>
-              ) : (
-                <span className="text-gray-500">No Trello Link</span>
-              )}
-            </li>
-          </ul>
+          <table className="w-full border-collapse border border-[#a3c4bc] dark:border-gray-600 text-left">
+            <tbody>
+              <tr>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
+                  Production Link:
+                </td>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#3c6e71] dark:text-green-400 underline"
+                  >
+                    {selectedProject.link}
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
+                  Next Meeting:
+                </td>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
+                  {selectedProject.dates[0]}
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
+                  Pending Payments:
+                </td>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
+                  ${selectedProject.missingPayment}{' '}
+                  <button className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-green-600 dark:hover:bg-green-700">
+                    Make Payment
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
+                  Total Paid:
+                </td>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
+                  ${selectedProject.totalPaid}
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
+                  Trello Link:
+                </td>
+                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
+                  {selectedProject.trelloLink ? (
+                    <a
+                      href={selectedProject.trelloLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#3c6e71] dark:text-green-400 underline"
+                    >
+                      {selectedProject.trelloLink}
+                    </a>
+                  ) : (
+                    <span className="text-[#2c5558] dark:text-green-500">No Trello Link</span>
+                  )}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <Dates selectedProject={selectedProject}/>
+        <Dates selectedProject={selectedProject} />
       </div>
-
     </>
   );
 };

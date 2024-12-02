@@ -4,7 +4,7 @@ import Login from './Login';
 import NavBar from './NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CostumerMain from './CostumerMain';
-
+import "./i18n"; // Importa la configuración
 
 function App() {
   return (
