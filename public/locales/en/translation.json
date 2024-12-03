@@ -1,6 +1,7 @@
 {
     "welcome": "Welcome to our app!",
     "button": {
-      "click_me": "Click me"
+      "click_me": "Click me",
+      "send": "send"
     }
   }

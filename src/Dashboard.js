@@ -11,8 +11,7 @@ const Dashboard = () => {
       <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 dark:bg-gray-900">
 
         <div className="text-center mb-6 max-w-2xl text-gray-800 dark:text-white">
-        <h1>{t("welcome")}</h1>
-
+          <h1>{t("welcome")}</h1>
           <p className="text-lg">
             Consigue la página web que necesitas para tu negocio, especializados en pequeñas y medianas empresas.
           </p>

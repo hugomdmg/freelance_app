@@ -1,5 +1,6 @@
 import Calendar from 'react-calendar';
 import { useState } from 'react';
+import 'react-calendar/dist/Calendar.css'; // Importar estilos predeterminados del calendario
 
 
 const Dates = ({ selectedProject }) => {

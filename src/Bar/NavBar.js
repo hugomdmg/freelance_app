@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./SideBar";
 import Languages from "./Languages";
+import DarkLightMode from "./DarkLightMode";
 
 const NavBar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(true);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
-
-    const toggleDarkMode = () => {
-        const newMode = !isDarkMode;
-        setIsDarkMode(newMode);
-        document.documentElement.classList.toggle("dark", newMode);
-        localStorage.setItem("theme", newMode ? "dark" : "light");
-    };
-
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        setIsDarkMode(savedTheme === "dark");
-        document.documentElement.classList.add(savedTheme);
-    }, []);
 
     return (
         <>
@@ -45,7 +32,7 @@ const NavBar = () => {
                         </svg>
                     </button>
                     <a
-                        href="/intro"
+                        href="/"
                         className="text-2xl font-bold text-[#d7e9e3] hover:text-[#2c5558] dark:text-white dark:hover:text-gray-400"
                     >
                         Logo
@@ -55,12 +42,7 @@ const NavBar = () => {
                 {/* Botones de login y modo oscuro */}
                 <div className="hidden md:flex space-x-4 items-center">
                     <Languages/>
-                    <button
-                        onClick={toggleDarkMode}
-                        className="px-1 py-0 rounded-md bg-[#204051] text-[#d7e9e3] hover:bg-[#2c5558] dark:bg-gray-500 dark:text-black dark:hover:bg-gray-400"
-                    >
-                        {isDarkMode ? "☀️" : "🌙"}
-                    </button>
+                    <DarkLightMode/>
                     <a
                         href="/login"
                         className="px-4 py-2 rounded-md bg-[#204051] text-[#d7e9e3] hover:bg-[#2c5558] dark:bg-gray-500 dark:text-black dark:hover:bg-gray-400"

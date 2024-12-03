@@ -1,10 +1,9 @@
-import './App.css';
 import Dashboard from './Dashboard';
 import Login from './Login';
-import NavBar from './NavBar';
+import NavBar from './Bar/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CostumerMain from './CostumerMain';
-import "./i18n"; // Importa la configuración
+import CostumerMain from './Costumer_Main/CostumerMain';
+import "./Bar/i18n";
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <NavBar />
         <div className="pt-16">
           <Routes>
-            <Route path="/intro" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/costumer-main' element={<CostumerMain />} />
           </Routes>

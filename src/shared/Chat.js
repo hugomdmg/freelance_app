@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const { t, i18n } = useTranslation();
 
   // Maneja el envío de mensajes
   const handleSendMessage = () => {
@@ -56,7 +58,7 @@ const Chat = () => {
           onClick={handleSendMessage}
           className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none dark:bg-blue-500 dark:hover:bg-blue-600"
         >
-          Send
+          {t("button.send")}
         </button>
       </div>
     </div>

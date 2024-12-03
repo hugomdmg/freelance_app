@@ -1,7 +1,8 @@
 {
     "welcome": "¡Bienvenido a nuestra aplicación!",
     "button": {
-      "click_me": "Haz clic aquí"
+      "click_me": "Haz clic aquí",
+      "send": "enviar"
     }
   }
   
