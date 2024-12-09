@@ -36,9 +36,10 @@ const ProjectDetails = ({ selectedProject }) => {
                         </td>
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
                             ${selectedProject.missingPayment}{' '}
-                            <button className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-green-600 dark:hover:bg-green-700">
+                            <a className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-green-600 dark:hover:bg-green-700"
+                            href="/payment">
                                 Make Payment
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     <tr>
