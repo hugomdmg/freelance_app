@@ -38,7 +38,7 @@ const Dates = ({ selectedProject }) => {
                 tileClassName={highlightDates}
 
             />
-            <style jsx>{
+            <style>{
                 `.highlighted-date {
                     background-color: green;
                     color: black;

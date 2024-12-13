@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chat from '../shared/Chat';
 import Dates from '../shared/Calendar'
 import ProjectsList from './ProjectsList'
 import ProjectDetails from './ProjectDetails'
+import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const CostumerMain = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const user = location.state?.user
+  console.log('costumermian', user)
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/')
+    }
+  }, [])
+
   const projects = [
     {
       name: 'Project 1',
