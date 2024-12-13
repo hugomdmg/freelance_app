@@ -3,7 +3,7 @@ import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css'; // Importar estilos predeterminados del calendario
 
 
-const Dates = ({ selectedProject }) => {
+const Dates = ({ dates }) => {
     const [calendarDate, setCalendarDate] = useState(new Date());
 
     // Función para convertir las fechas en formato dd/mm/yyyy a objetos Date
@@ -13,7 +13,7 @@ const Dates = ({ selectedProject }) => {
     };
 
     // Convertir las fechas del proyecto a objetos Date
-    const projectDates = selectedProject.dates.map((dateStr) => parseDate(dateStr));
+    const projectDates = dates.map((dateStr) => parseDate(dateStr));
 
     // Función para resaltar las fechas en el calendario
     const highlightDates = ({ date }) => {
@@ -34,7 +34,7 @@ const Dates = ({ selectedProject }) => {
             <Calendar
                 onChange={setCalendarDate}
                 value={calendarDate}
-                className="w-1/3 flex flex-col dark:bg-gray-800 shadow-md rounded-lg p-6"
+                className="dark:bg-gray-800 shadow-md rounded-lg p-6"
                 tileClassName={highlightDates}
 
             />

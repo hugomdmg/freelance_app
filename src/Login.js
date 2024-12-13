@@ -2,20 +2,34 @@ import { useState } from 'react'
 import API from './infraestructure/api';
 import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
 
-
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const api = new API()
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+  const [alert, setAlert] = useState('');
+  const api = new API();
+  const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const login = async () => {
-    let response = await api.post('/login', { username: email, password: password })
-    console.log(response)
-    if (response.status == 200) {
-      navigate('/costumer-main', { state: { user: response } })
+    let response = await api.post('/login', { username: email, password: password });
+    console.log(response);
+    if (response.status === 200) {
+      if (response.data.roll === 'costumer') {
+        navigate('/costumer-main', { state: { user: response } });
+      }
+      if (response.data.roll === 'admin') {
+        navigate('/admin-main')
+      }
     }
-  }
+    if (response.status === 400) {
+      setAlert(response.value);
+      setTimeout(() => { setAlert(''); }, 4000);
+    }
+  };
 
   return (
     <div className="fixed w-full h-full flex flex-col items-center justify-center bg-[#d7e9e3] dark:bg-gray-900">
@@ -33,7 +47,7 @@ const Login = () => {
               type="email"
               id="email"
               value={email}
-              onChange={(e) => { setEmail(e.target.value) }}
+              onChange={(e) => { setEmail(e.target.value); }}
               placeholder="Enter your email"
               className="w-full px-3 py-2 text-[#204051] dark:text-gray-200 bg-[#f5f7f6] dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500 focus:border-transparent"
             />
@@ -46,27 +60,36 @@ const Login = () => {
             >
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => { setPassword(e.target.value) }}
-              placeholder="Enter your password"
-              className="w-full px-3 py-2 text-[#204051] dark:text-gray-200 bg-[#f5f7f6] dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500 focus:border-transparent"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); }}
+                placeholder="Enter your password"
+                className="w-full px-3 py-2 text-[#204051] dark:text-gray-200 bg-[#f5f7f6] dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500 focus:border-transparent"
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-2 top-2 text-[#204051] dark:text-gray-500 focus:outline-none"
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </div>
 
         </form>
         <button
           type="submit"
           className="w-full bg-[#3c6e71] hover:bg-[#2c5558] text-[#d7e9e3] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-500"
-          onClick={() => { login() }}
+          onClick={() => { login(); }}
         >
           Login
         </button>
 
         <p className="text-center text-sm text-[#204051] dark:text-gray-400 mt-4">
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <a
             href="#"
             className="text-[#3c6e71] hover:underline dark:text-blue-500"
@@ -75,8 +98,10 @@ const Login = () => {
           </a>
         </p>
       </div>
+      <p className="text-red-500 px-4 py-2 rounded-md text-center">
+        {alert}
+      </p>
     </div>
-
   );
 };
 

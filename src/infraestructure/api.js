@@ -1,21 +1,22 @@
 class API {
     adress = 'http://localhost:3001'
 
-
-    get(url) {
-        let response
-        fetch(this.adress + url).then(res => {
+    async get(url) {
+        try {
+            const res = await fetch(this.adress + url);
+    
             if (!res.ok) {
-                throw new Error('fail to fetch')
+                throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
             }
-            return res.json()
-        }).then(data => {
-            response = data
-        }).catch(error => {
-            console.error(error)
-        })
-        return response
+    
+            const data = await res.json();
+            return data;
+        } catch (error) {
+            console.error("Error in GET request:", error.message);
+            throw error;
+        }
     }
+    
 
 
 
