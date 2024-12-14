@@ -1,5 +1,5 @@
 class API {
-    adress = 'http://localhost:3001'
+    adress = process.env.URL
 
     async get(url) {
         try {
