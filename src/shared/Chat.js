@@ -14,7 +14,7 @@ const Chat = ({ user1, user2 }) => {
       try {
         const send = { user1: user1, user2: user2 }
         const response = await api.post('/get-messages', send);
-        if (response && response.data.messages && !sending) {
+        if (response && response.data.messages) {
           setMessages(response.data.messages);
         }
       } catch (error) {
@@ -22,7 +22,9 @@ const Chat = ({ user1, user2 }) => {
       }
     };
     const intervalId = setInterval(() => {
-      fetchMessages();
+      if(!sending){
+        fetchMessages();
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
