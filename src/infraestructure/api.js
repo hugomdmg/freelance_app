@@ -1,7 +1,8 @@
 
 
 class API {
-    adress = process.env.REACT_APP_API_URL
+    //adress = process.env.REACT_APP_API_URL
+    adress = 'https://freelance-api-navy.vercel.app'
 
     async get(url) {
         try {
