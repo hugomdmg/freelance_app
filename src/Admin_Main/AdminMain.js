@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import API from '../infraestructure/api';
 import Dates from '../shared/Calendar';
+import Chat from '../shared/Chat';
 
 const AdminMain = () => {
     const [users, setUsers] = useState([]);
@@ -8,11 +11,21 @@ const AdminMain = () => {
     const [error, setError] = useState(null);
     const api = new API();
 
+    const location = useLocation();
+    const navigate = useNavigate();
+    const user = location.state?.user;
+
+
+    const [selectedCostumer, setSelectedCostumer] = useState()
+
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const fetchedUsers = await api.get('/users');
                 setUsers(fetchedUsers);
+                setSelectedCostumer(fetchedUsers[2])
+
             } catch (err) {
                 console.error("Error fetching users:", err);
                 setError('Failed to fetch users');
@@ -23,6 +36,7 @@ const AdminMain = () => {
 
         fetchUsers();
     }, []);
+
 
     if (loading) {
         return (
@@ -65,32 +79,34 @@ const AdminMain = () => {
                 <table className="w-full border-collapse border border-[#a3c4bc] dark:border-gray-600">
                     <thead>
                         <tr className="bg-[#a3c4bc] dark:bg-gray-700 text-[#204051] dark:text-gray-300">
-                            <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Username</th>
+                            <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">email</th>
                             <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Pending projects</th>
                             <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Total projects</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, index) => {
+                        {users.map((costumer, index) => {
                             let total = 0
-                            user.projects.forEach(project => {
-                                if(project.status == 'Not Finished'){
-                                    total ++
+                            costumer.projects.forEach(project => {
+                                if (project.status == 'Not Finished') {
+                                    total++
                                 }
                             });
                             return (
                                 <tr
                                     key={index}
                                     className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800 hover:bg-[#c9dcd6] dark:hover:bg-gray-700"
+                                    onClick={() => setSelectedCostumer(costumer)}
+
                                 >
                                     <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-[#204051] dark:text-gray-300">
-                                        {user.username}
+                                        {costumer.email}
                                     </td>
                                     <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-[#204051] dark:text-gray-300">
                                         {total}
                                     </td>
                                     <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-[#204051] dark:text-gray-300">
-                                        {user.projects.length}
+                                        {costumer.projects.length}
                                     </td>
                                 </tr>
                             )
@@ -102,10 +118,10 @@ const AdminMain = () => {
             <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
                 <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
                     <Dates dates={['01/01/2025', '20/01/2025']} />
+                    <Chat user1={user} user2={selectedCostumer} />
+                    <p>{selectedCostumer.email}</p>
                 </div>
             </div>
-
-
         </div>
     );
 };

@@ -7,6 +7,7 @@ import "./Bar/i18n";
 import PaymentPage from './Payment';
 import NewProject from './NewProject';
 import AdminMain from './Admin_Main/AdminMain'
+import Signup from './Singup';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/payment' element={<PaymentPage />} />
             <Route path='/new-project' element={<NewProject />} />
             <Route path='/admin-main' element={<AdminMain />} />
+            <Route path='/signup' element={<Signup/>}/>
           </Routes>
         </div>
       </BrowserRouter>

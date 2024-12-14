@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import API from '../infraestructure/api';
 
-const Chat = () => {
+const Chat = ({ user1, user2 }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const api = new API();
 
-  // Maneja el envío de mensajes
-  const handleSendMessage = () => {
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const send = { user1: user1, user2: user2 }
+        const response = await api.post('/get-messages', send);
+        if (response && response.data.messages) {
+          setMessages(response.data.messages);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+    const intervalId = setInterval(() => {
+      fetchMessages();
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [user2]);
+
+  const handleSendMessage = async () => {
     if (inputMessage.trim() !== '') {
-      setMessages([...messages, { text: inputMessage, sender: 'You' }]);
+      setMessages([...messages, { owner: user1.email, message: inputMessage }]);
+     // user1.chats[0].messages = [...messages, { owner: user1.email, message: inputMessage }]
+      const data = {user1:user1, user2:user2, messages:[...messages, { owner: user1.email, message: inputMessage }]}
+      await api.post('/send-message', data)
       setInputMessage('');
     }
   };
 
-  // Maneja el envío con la tecla Enter
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
@@ -22,7 +44,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="w-1/3 flex flex-col bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-6">
+    <div className="flex flex-col bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg">
       <h2 className="text-2xl font-bold text-[#204051] dark:text-gray-200 mb-4">Chat</h2>
       <div className="h-80 overflow-y-auto bg-[#eaf1ef] dark:bg-gray-700 rounded-md p-4 space-y-3 mb-4">
         {messages.length === 0 ? (
@@ -31,15 +53,15 @@ const Chat = () => {
           messages.map((message, index) => (
             <div
               key={index}
-              className={`flex ${message.sender === 'You' ? 'justify-end' : 'justify-start'}`}
+              className={`flex ${message.owner === user1.email ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-xs px-4 py-2 rounded-lg ${message.sender === 'You'
+                className={`max-w-xs px-4 py-2 rounded-lg ${message.owner === user1.email
                   ? 'bg-[#3c6e71] text-[#d7e9e3]'
                   : 'bg-[#a3c4bc] text-[#204051] dark:bg-gray-600 dark:text-gray-200'
                   }`}
               >
-                {message.text}
+                {message.message}
               </div>
             </div>
           ))

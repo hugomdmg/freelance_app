@@ -1,71 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import Chat from '../shared/Chat';
-import Dates from '../shared/Calendar'
-import ProjectsList from './ProjectsList'
-import ProjectDetails from './ProjectDetails'
-import { useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import Dates from '../shared/Calendar';
+import ProjectsList from './ProjectsList';
+import ProjectDetails from './ProjectDetails';
+import { useNavigate, useLocation } from 'react-router-dom';
 import API from '../infraestructure/api';
 
 const CostumerMain = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const api = new API()
+  const location = useLocation();
+  const navigate = useNavigate();
+  const api = new API();
 
-  const user = location.state?.user
-  
+  // Obtener usuario desde el estado de la ubicación
+  const user = location.state?.user;
+
+  // Redirigir a la página principal si no hay usuario
   useEffect(() => {
     if (!user) {
-      navigate('/')
+      navigate('/');
     }
-   
-  }, []);
+  }, [user, navigate]);
 
-  const projects = [
-    {
-      name: 'Project 1',
-      status: 'Finished',
-      link: 'https://main.d183snd9vhmvw3.amplifyapp.com/',
-      dates: ['23/01/2025', '12/02/2025'],
-      missingPayment: 200,
-      totalPaid: 300,
-      trelloLink: '',
-    },
-    {
-      name: 'Project 2',
-      status: 'Not Finished',
-      link: 'https://main.d183snd9vhmvw3.amplifyapp.com/',
-      dates: ['05/12/2024', '15/04/2025'],
-      missingPayment: 6600,
-      totalPaid: 300,
-      trelloLink: '',
-    },
-    {
-      name: 'Project 3',
-      status: 'Finished',
-      link: 'https://main.d183snd9vhmvw3.amplifyapp.com/',
-      dates: ['01/05/2025', '20/06/2025'],
-      missingPayment: 200,
-      totalPaid: 300,
-      trelloLink: '',
-    },
-  ];
-
-  const [selectedProject, setSelectedProject] = useState(projects[0]);
+  // Inicializar el proyecto seleccionado con el primer proyecto del usuario
+  const [selectedProject, setSelectedProject] = useState(user?.projects?.[0] || null);
 
   return (
-    <>
-      <div className="flex p-8 bg-[#f4f4f2] dark:bg-gray-900 space-x-8">
-        <ProjectsList setSelectedProject={setSelectedProject} projects={projects} />
-        <Chat />
+    <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
+      {/* Lista de Proyectos */}
+      <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
+        {user?.projects && (
+          <ProjectsList setSelectedProject={setSelectedProject} projects={user.projects} />
+        )}
+        {selectedProject && <ProjectDetails selectedProject={selectedProject} />}
       </div>
 
-      <div className="flex p-8 bg-[#f4f4f2] dark:bg-gray-900 space-x-8">
-        <ProjectDetails selectedProject={selectedProject} />
-        <Dates dates={selectedProject.dates} />
+      {/* Fechas y Chat */}
+      <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
+        <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
+          <Dates dates={['01/01/2025', '20/01/2025']} />
+          {user && <Chat user1={user} user2={{ email: 'hugo' }} />}
+        </div>
       </div>
-    </>
+    </div>
+
   );
 };
 
 export default CostumerMain;
+
