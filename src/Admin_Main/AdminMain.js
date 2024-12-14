@@ -118,7 +118,6 @@ const AdminMain = () => {
                 <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
                     <Dates dates={['01/01/2025', '20/01/2025']} />
                     <Chat user1={user} user2={selectedCostumer} />
-                    <p>{selectedCostumer.email}</p>
                 </div>
             </div>
         </div>

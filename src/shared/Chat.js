@@ -7,13 +7,14 @@ const Chat = ({ user1, user2 }) => {
   const [inputMessage, setInputMessage] = useState('');
   const { t } = useTranslation();
   const api = new API();
+  const [sending, setSending] = useState(false)
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const send = { user1: user1, user2: user2 }
         const response = await api.post('/get-messages', send);
-        if (response && response.data.messages) {
+        if (response && response.data.messages && !sending) {
           setMessages(response.data.messages);
         }
       } catch (error) {
@@ -25,15 +26,16 @@ const Chat = ({ user1, user2 }) => {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [user2]);
+  }, [user2, sending]);
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() !== '') {
       setMessages([...messages, { owner: user1.email, message: inputMessage }]);
-     // user1.chats[0].messages = [...messages, { owner: user1.email, message: inputMessage }]
+      setSending(true)
       const data = {user1:user1, user2:user2, messages:[...messages, { owner: user1.email, message: inputMessage }]}
-      await api.post('/send-message', data)
       setInputMessage('');
+      await api.post('/send-message', data)
+      setSending(false)
     }
   };
 
