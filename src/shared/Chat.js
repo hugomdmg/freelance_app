@@ -7,7 +7,6 @@ const Chat = ({ user1, user2 }) => {
   const [inputMessage, setInputMessage] = useState('');
   const { t } = useTranslation();
   const api = new API();
-  const [sending, setSending] = useState(false)
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -22,22 +21,17 @@ const Chat = ({ user1, user2 }) => {
       }
     };
     const intervalId = setInterval(() => {
-      if(!sending){
         fetchMessages();
-      }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [user2, sending]);
+  }, [user2]);
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() !== '') {
-      setMessages([...messages, { owner: user1.email, message: inputMessage }]);
-      setSending(true)
       const data = {user1:user1, user2:user2, messages:[...messages, { owner: user1.email, message: inputMessage }]}
       setInputMessage('');
       await api.post('/send-message', data)
-      setSending(false)
     }
   };
 
