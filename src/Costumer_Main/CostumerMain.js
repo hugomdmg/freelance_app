@@ -26,7 +26,6 @@ const CostumerMain = () => {
 
   return (
     <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
-      {/* Lista de Proyectos */}
       <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
         {user?.projects && (
           <ProjectsList setSelectedProject={setSelectedProject} projects={user.projects} />
@@ -34,7 +33,6 @@ const CostumerMain = () => {
         {selectedProject && <ProjectDetails selectedProject={selectedProject} />}
       </div>
 
-      {/* Fechas y Chat */}
       <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
         <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
           <Dates dates={['01/01/2025', '20/01/2025']} />
