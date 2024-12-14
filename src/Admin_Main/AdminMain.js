@@ -16,7 +16,7 @@ const AdminMain = () => {
     const user = location.state?.user;
 
 
-    const [selectedCostumer, setSelectedCostumer] = useState()
+    const [selectedCostumer, setSelectedCostumer] = useState(user)
 
 
     useEffect(() => {
@@ -24,7 +24,6 @@ const AdminMain = () => {
             try {
                 const fetchedUsers = await api.get('/users');
                 setUsers(fetchedUsers);
-                setSelectedCostumer(fetchedUsers[2])
 
             } catch (err) {
                 console.error("Error fetching users:", err);
