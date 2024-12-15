@@ -2,7 +2,7 @@ import API from "../infraestructure/api";
 
 const api = new API()
 
-const ProjectDetails = ({ user, setUser, setSelectedProject, selectedProject, edit, setEdit }) => {
+const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProject, edit, setEdit }) => {
 
     const saveProject = async () => {
         const data = { project: selectedProject, email: user.email }
@@ -86,15 +86,33 @@ const ProjectDetails = ({ user, setUser, setSelectedProject, selectedProject, ed
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
                             Pending Payments:
                         </td>
-                        <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
-                            ${selectedProject.missingPayment}{' '}
-                            <a
-                                className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-blue-600 dark:hover:bg-blue-700 transition"
-                                href="/payment"
-                            >
-                                Make Payment
-                            </a>
-                        </td>
+                        {(!edit || !admin) ?
+                            (
+                                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
+                                    ${selectedProject.missingPayment}{' '}
+                                    {!admin &&
+                                        (<a
+                                            className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-blue-600 dark:hover:bg-blue-700 transition"
+                                            href="/payment"
+                                        >
+                                            Make Payment
+                                        </a>)}
+                                </td>
+                            )
+                            :
+                            (
+                                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
+                                    <input
+                                        type="text"
+                                        id="payment"
+                                        value={selectedProject.missingPayment || ''}
+                                        onChange={(e) => { setSelectedProject({ ...selectedProject, missingPayment: e.target.value }) }}
+                                        placeholder={selectedProject.trelloLink || 'Enter Trello Link'}
+                                        className="w-full px-3 py-2 text-[#204051] dark:text-gray-200 bg-[#f5f7f6] dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500 focus:border-transparent"
+                                    />
+                                </td>
+                            )
+                        }
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
@@ -146,7 +164,6 @@ const ProjectDetails = ({ user, setUser, setSelectedProject, selectedProject, ed
                     onClick={async () => { saveProject() }}
                 >
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                         className="w-5 h-5 mr-2"

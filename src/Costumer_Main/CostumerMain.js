@@ -25,7 +25,7 @@ const CostumerMain = () => {
         {user?.projects && (
           <ProjectsList setSelectedProject={setSelectedProject} setEdit={setEdit} user={user} setUser={setUser} />
         )}
-        {selectedProject && <ProjectDetails user={user} setUser={setUser} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit}/>}
+        {selectedProject && <ProjectDetails admin={false} user={user} setUser={setUser} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit}/>}
       </div>
 
       <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">

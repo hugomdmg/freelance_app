@@ -53,7 +53,7 @@ const AdminMain = () => {
                     <ProjectsList setSelectedProject={setSelectedProject} setEdit={setEdit} user={selectedCostumer} setUser={setSelectedCostumer} />
                 )}
                 {selectedProject &&
-                    <ProjectDetails user={selectedCostumer} setUser={setSelectedCostumer} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit} />}
+                    <ProjectDetails admin={true} user={selectedCostumer} setUser={setSelectedCostumer} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit} />}
             </div>
             <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
                 <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
