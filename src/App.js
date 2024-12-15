@@ -10,11 +10,12 @@ import AdminMain from './Admin_Main/AdminMain'
 import Signup from './Singup';
 
 function App() {
+
   return (
-    <div className="App">
+    <div>
       <BrowserRouter>
         <NavBar />
-        <div className="pt-16">
+        <div className="App pt-16">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
@@ -22,7 +23,7 @@ function App() {
             <Route path='/payment' element={<PaymentPage />} />
             <Route path='/new-project' element={<NewProject />} />
             <Route path='/admin-main' element={<AdminMain />} />
-            <Route path='/signup' element={<Signup/>}/>
+            <Route path='/signup' element={<Signup />} />
           </Routes>
         </div>
       </BrowserRouter>

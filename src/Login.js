@@ -23,7 +23,7 @@ const Login = () => {
         navigate('/costumer-main', { state: { user: response.data } });
       }
       if (response.data.roll === 'admin') {
-        navigate('/admin-main', { state: { user: response.data }})
+        navigate('/admin-main', { state: { user: response.data } })
       }
     }
     if (response.status === 400) {
@@ -31,6 +31,7 @@ const Login = () => {
       setTimeout(() => { setAlert(''); }, 4000);
     }
   };
+
 
   return (
     <div className="fixed w-full h-full flex flex-col items-center justify-center bg-[#d7e9e3] dark:bg-gray-900">

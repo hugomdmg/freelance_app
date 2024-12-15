@@ -1,33 +1,26 @@
 import Calendar from 'react-calendar';
 import { useState } from 'react';
-import 'react-calendar/dist/Calendar.css'; // Importar estilos predeterminados del calendario
+import 'react-calendar/dist/Calendar.css';
 
 
 const Dates = ({ dates }) => {
     const [calendarDate, setCalendarDate] = useState(new Date());
-
-    // Función para convertir las fechas en formato dd/mm/yyyy a objetos Date
     const parseDate = (dateString) => {
         const [day, month, year] = dateString.split('/');
-        return new Date(year, month - 1, day); // Month is 0-indexed in JS Date
+        return new Date(year, month - 1, day);
     };
 
-    // Convertir las fechas del proyecto a objetos Date
     const projectDates = dates.map((dateStr) => parseDate(dateStr));
-
-    // Función para resaltar las fechas en el calendario
     const highlightDates = ({ date }) => {
-        // Comparar solo año, mes y día
         const isHighlighted = projectDates.some(
             (projectDate) =>
                 projectDate.getDate() === date.getDate() &&
                 projectDate.getMonth() === date.getMonth() &&
                 projectDate.getFullYear() === date.getFullYear()
         );
-        return isHighlighted ? 'highlighted-date' : ''; // Añadimos una clase CSS personalizada
+        return isHighlighted ? 'highlighted-date' : '';
 
     }
-
 
     return (
         <>
