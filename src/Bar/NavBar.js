@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sidebar from "./SideBar";
 import Languages from "./Languages";
 import DarkLightMode from "./DarkLightMode";
 
-const NavBar = () => {
+
+
+const NavBar = ({ user }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    console.log(user)
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -41,14 +45,22 @@ const NavBar = () => {
 
                 {/* Botones de login y modo oscuro */}
                 <div className="hidden md:flex space-x-4 items-center">
-                    <Languages/>
-                    <DarkLightMode/>
-                    <a
-                        href="/login"
-                        className="px-4 py-2 rounded-md bg-[#204051] text-[#d7e9e3] hover:bg-[#2c5558] dark:bg-gray-500 dark:text-black dark:hover:bg-gray-400"
-                    >
-                        Log in
-                    </a>
+                    <Languages />
+                    <DarkLightMode />
+                    {user ? (
+                        <button
+                            className="px-4 py-2 rounded-md bg-[#204051] text-[#d7e9e3] hover:bg-[#2c5558]"
+                        >
+                            {user.email}
+                        </button>
+                    ) : (
+                        <a
+                            href="/login"
+                            className="px-4 py-2 rounded-md bg-[#204051] text-[#d7e9e3] hover:bg-[#2c5558] dark:bg-gray-500 dark:text-black dark:hover:bg-gray-400"
+                        >
+                            Log in
+                        </a>
+                    )}
                 </div>
             </nav>
             <Sidebar isSidebarOpen={isSidebarOpen} />

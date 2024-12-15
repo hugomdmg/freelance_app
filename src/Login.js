@@ -2,7 +2,7 @@ import { useState } from 'react'
 import API from './infraestructure/api';
 import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
 
-const Login = () => {
+const Login = ({setUser}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
@@ -16,14 +16,14 @@ const Login = () => {
 
   const login = async () => {
     let response = await api.post('/login', { email: email, password: password });
-    console.log(response);
     if (response.status === 200) {
       if (response.data.roll === 'costumer') {
-        console.log(response.data.projects)
+        setUser(response.data)
         navigate('/costumer-main', { state: { user: response.data } });
       }
       if (response.data.roll === 'admin') {
         navigate('/admin-main', { state: { user: response.data } })
+        setUser(response.data)
       }
     }
     if (response.status === 400) {

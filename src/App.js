@@ -8,17 +8,19 @@ import PaymentPage from './Payment';
 import NewProject from './NewProject';
 import AdminMain from './Admin_Main/AdminMain'
 import Signup from './Singup';
+import { useState } from 'react';
 
 function App() {
+const [user, setUser] = useState(null)
 
   return (
     <div>
       <BrowserRouter>
-        <NavBar />
+        <NavBar user={user}/>
         <div className="App pt-16">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<Login setUser={setUser}/>} />
             <Route path='/costumer-main' element={<CostumerMain />} />
             <Route path='/payment' element={<PaymentPage />} />
             <Route path='/new-project' element={<NewProject />} />
