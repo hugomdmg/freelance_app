@@ -1,8 +1,10 @@
 import API from "../infraestructure/api";
+import { useTranslation } from 'react-i18next';
 
 const api = new API()
 
 const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProject, edit, setEdit }) => {
+    const {t} = useTranslation()
 
     const saveProject = async () => {
         const data = { project: selectedProject, email: user.email }
@@ -30,7 +32,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                 <tbody>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                            Production Link:
+                            {t("projectDetails.productionLink")}
                         </td>
                         {!edit ? (
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">
@@ -59,7 +61,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                            Next Meeting:
+                        {t("projectDetails.nextMeeting")}
                         </td>
                         {!edit ? (
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
@@ -84,7 +86,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                            Pending Payments:
+                        {t("projectDetails.pendingPayment")}
                         </td>
                         {(!edit || !admin) ?
                             (
@@ -95,8 +97,8 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                                             className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-blue-600 dark:hover:bg-blue-700 transition"
                                             href="/payment"
                                         >
-                                            Make Payment
-                                        </a>)}
+                            {t("projectDetails.makePayment")}
+                            </a>)}
                                 </td>
                             )
                             :
@@ -116,7 +118,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                            Total Paid:
+                        {t("projectDetails.totalPaid")}
                         </td>
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
                             ${selectedProject.totalPaid}
@@ -124,7 +126,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                            Trello Link:
+                        {t("projectDetails.trelloLink")}
                         </td>
                         {!edit ? (
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">

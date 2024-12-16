@@ -1,8 +1,10 @@
 import API from "../infraestructure/api";
+import { useTranslation } from 'react-i18next';
 
 const api = new API()
 
 const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
+    const { t } = useTranslation()
     const deleteProject = async (project) => {
         const data = { project: project, email: user.email }
         const res = await api.post('/delete-project', data)
@@ -17,12 +19,12 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
-            <h2 className="text-2xl font-bold text-[#3c6e71] dark:text-gray-200 mb-4">Project List</h2>
+            <h2 className="text-2xl font-bold text-[#3c6e71] dark:text-gray-200 mb-4">{t("projectList.title")}</h2>
             <table className="w-full border-collapse border border-[#a3c4bc] dark:border-gray-600">
                 <thead>
                     <tr className="bg-[#a3c4bc] dark:bg-gray-700 text-[#204051] dark:text-gray-300">
-                        <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Project Name</th>
-                        <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">Status</th>
+                        <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">{t("projectList.projectName")}</th>
+                        <th className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left">{t("projectList.status")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +49,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                                     <button
                                         className="px-3 py-1 text-sm text-white bg-green-900 hover:bg-blue-900 dark:bg-green-700 dark:hover:bg-blue-900 rounded-md"
                                         onClick={() => { setEdit(false); setSelectedProject(project) }}
-                                        >
+                                    >
                                         <svg
                                             fill="currentColor"
                                             viewBox="0 0 24 24"
@@ -95,7 +97,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                     className="px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
                     onClick={async () => { await createProject() }}
                 >
-                    Nuevo Proyecto
+                    {t("projectList.newProject")}
                 </button>
             </div>
         </div>

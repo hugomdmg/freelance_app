@@ -39,7 +39,7 @@ const NavBar = ({ user }) => {
                         href="/"
                         className="text-2xl font-bold text-[#d7e9e3] hover:text-[#2c5558] dark:text-white dark:hover:text-gray-400"
                     >
-                        Logo
+                        YourSite
                     </a>
                 </div>
 

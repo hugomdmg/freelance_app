@@ -1,7 +1,54 @@
 {
-    "welcome": "Welcome to our app!",
-    "button": {
-      "click_me": "Click me",
-      "send": "send"
+  "dashboard": {
+    "welcome": "Welcome to YourSite!",
+    "intro": "Get the website you need for your business. We specialize in providing solutions for small and medium-sized businesses.",
+    "explain1": "We offer price ranges tailored to the complexity of your project. From basic pages to advanced solutions.",
+    "explain2": "By registering, you can consult directly with our developers to define the details of your project and track its progress.",
+    "info": "Do you want more information?",
+    "infotext": {
+      "contact": "Contact us at ",
+      "or": " or ",
+      "details": " for more details.",
+      "link": "register"
+    },
+    "table": {
+      "title": "Our Services",
+      "columns": {
+        "type": "Type of Project",
+        "price": "Price",
+        "description": "Description"
+      },
+      "services": {
+        "static": "Static Page",
+        "staticDescription": "Simple pages, ideal for small businesses without a database.",
+        "simple": "Simple Pages with Database",
+        "simpleDescription": "Includes features like contact forms and storage.",
+        "complex": "Complex Pages",
+        "complexDescription": "Advanced features and customized complex databases."
+      }
     }
+  },
+
+  "projectList":{
+    "title": "Projects list",
+    "projectName": "Project name",
+    "status": "Status",
+    "newProject": "New Project"
+  },
+
+  "projectDetails":{
+    "productionLink": "Production link",
+    "nextMeeting": "Next meeting",
+    "pendingPayment": "Pending payment",
+    "totalPaid": "Total paid",
+    "trelloLink": "Trello link",
+    "makePayment": "Make payment"
+
+  },
+
+  "chat":{
+    "send": "send",
+    "type": "Type your message...",
+    "noMessage": "No messages yet."
   }
+}

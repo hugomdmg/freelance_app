@@ -1,10 +1,12 @@
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
-
+import { useTranslation } from "react-i18next";
 
 const Dates = ({ dates }) => {
     const [calendarDate, setCalendarDate] = useState(new Date());
+    const { i18n } = useTranslation();
+
     const parseDate = (dateString) => {
         const [day, month, year] = dateString.split('/');
         return new Date(year, month - 1, day);
@@ -19,24 +21,19 @@ const Dates = ({ dates }) => {
                 projectDate.getFullYear() === date.getFullYear()
         );
         return isHighlighted ? 'highlighted-date' : '';
-
-    }
+    };
 
     return (
         <>
             <Calendar
                 onChange={setCalendarDate}
                 value={calendarDate}
+                locale={i18n.language}
                 className="dark:bg-gray-800 shadow-md rounded-lg p-6"
                 tileClassName={highlightDates}
-
             />
             <style>{
-                `.highlighted-date {
-                    background-color: green;
-                    color: black;
-                }
-                .react-calendar {
+                `.react-calendar {
                     background-color: #d7e9e3;
                     color: #204051;
                 }
@@ -52,7 +49,7 @@ const Dates = ({ dates }) => {
                 `
             }</style>
         </>
-    )
-}
+    );
+};
 
-export default Dates
+export default Dates;
