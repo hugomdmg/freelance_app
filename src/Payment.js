@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
+import API from './infraestructure/api.js'
 
 const PaymentPage = () => {
     const location = useLocation();
-    const { selectedProject } = location.state || {};
-    console.log(selectedProject)
+    const { selectedProject, user } = location.state || {};
+    console.log(user)
+    const api = new API()
 
     const [formData, setFormData] = useState({
         fullName: "",

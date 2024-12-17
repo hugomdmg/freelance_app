@@ -25,12 +25,12 @@ const CostumerMain = () => {
         {user?.projects && (
           <ProjectsList setSelectedProject={setSelectedProject} setEdit={setEdit} user={user} setUser={setUser} />
         )}
-        {selectedProject && <ProjectDetails admin={false} user={user} setUser={setUser} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit}/>}
+        {selectedProject && <ProjectDetails admin={false} user={user} setUser={setUser} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit} />}
       </div>
 
       <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
         <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
-          <Dates dates={selectedProject? selectedProject.dates:[]} />
+          <Dates dates={selectedProject ? selectedProject.dates : []} />
           {user && <Chat user1={user} user2={{ email: process.env.REACT_APP_ADMIN }} />}
         </div>
       </div>

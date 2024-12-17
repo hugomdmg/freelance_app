@@ -96,7 +96,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                                     ${selectedProject.missingPayment}{' '}
                                     {!admin &&
                                         (<button
-                                            onClick={() => { navigate('/payment', { state: { selectedProject: selectedProject } }); }}
+                                            onClick={() => { navigate('/payment', { state: { selectedProject: selectedProject, user:user } }); }}
                                             className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-blue-600 dark:hover:bg-blue-700 transition"
                                             href="/payment"
                                         >
