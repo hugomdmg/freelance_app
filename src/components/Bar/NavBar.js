@@ -19,7 +19,7 @@ const NavBar = ({ user }) => {
             <nav className="px-4 flex justify-between fixed w-full bg-[#3c6e71] py-3 shadow-md dark:bg-gray-800 dark:text-white z-10">
                 {/* Logo y menú lateral */}
                 <div className="hidden md:flex space-x-4 items-center">
-                    <button onClick={toggleSidebar} aria-label="Toggle menu">
+                    {user && <button onClick={toggleSidebar} aria-label="Toggle menu">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="w-6 h-6 text-[#d7e9e3] dark:text-white"
@@ -34,7 +34,7 @@ const NavBar = ({ user }) => {
                                 d="M4 6h16M4 12h16M4 18h16"
                             />
                         </svg>
-                    </button>
+                    </button>}
                     <a
                         href="/"
                         className="text-2xl font-bold text-[#d7e9e3] hover:text-[#2c5558] dark:text-white dark:hover:text-gray-400"

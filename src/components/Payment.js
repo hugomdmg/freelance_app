@@ -5,7 +5,7 @@ import API from '../infraestructure/api.js'
 const PaymentPage = () => {
     const location = useLocation();
     const { selectedProject, user } = location.state || {};
-    console.log(user)
+    console.log(selectedProject)
     const api = new API()
 
     const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ const PaymentPage = () => {
         cardNumber: "",
         expiryDate: "",
         cvv: "",
-        payment:selectedProject.missingPayment
+        payment: selectedProject.missingPayment
     });
 
     const handleInputChange = (e) => {
@@ -26,7 +26,11 @@ const PaymentPage = () => {
         e.preventDefault();
         alert("Pago procesado exitosamente!");
     };
-    
+
+    const sendData = async () => {
+        await api.post('/make-payment', { email: user.email, projectId: selectedProject.id, paymentData: formData })
+    }
+
 
     return (
         <div className="fixed w-full h-full flex flex-col items-center justify-center bg-[#eaf1ef] dark:bg-gray-900">
@@ -150,10 +154,11 @@ const PaymentPage = () => {
                         required
                         className="w-full px-3 py-2 text-[#204051] dark:text-gray-200 bg-[#f5f7f6] dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500 focus:border-transparent"
                     />
-                </div> 
+                </div>
 
                 {/* Botón de pago */}
                 <button
+                    onClick={() => { sendData() }}
                     type="submit"
                     className="w-full bg-[#3c6e71] hover:bg-[#2c5558] text-[#d7e9e3] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-500"
                 >
