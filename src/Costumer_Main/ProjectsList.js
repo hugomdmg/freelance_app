@@ -1,10 +1,13 @@
 import API from "../infraestructure/api";
 import { useTranslation } from 'react-i18next';
+import Loading from "../shared/Loading";
+import { useState } from "react";
 
 const api = new API()
 
 const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
     const { t } = useTranslation()
+    const [loading, setLoading] = useState(false)
     const deleteProject = async (project) => {
         const data = { project: project, email: user.email }
         const res = await api.post('/delete-project', data)
@@ -93,11 +96,12 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
             </table>
             <div className="flex mt-4">
                 <button
-                    className="px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
-                    onClick={async () => { await createProject() }}
+                    className="h-10 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
+                    onClick={async () => { setLoading(true); await createProject(); setLoading(false) }}
                 >
                     {t("projectList.newProject")}
                 </button>
+                {loading && <Loading size={50}/>}
             </div>
         </div>
     )

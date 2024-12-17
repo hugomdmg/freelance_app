@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 
-const Loading = () => {
+const Loading = ({size}) => {
     const canvasRef = useRef(null);
-    const w = 120;
-    const h = 120;
+    // const w = width;
+    // const h = height;
     let angle = 0;
     const originalPoints = [];
     for (let i = 0; i < Math.PI * 2; i += 0.05) {
-        originalPoints.push({ x: 50 * Math.cos(i), y: 50 * Math.sin(i) });
+        originalPoints.push({ x: (size/4) * Math.cos(i), y: (size/4) * Math.sin(i) });
     }
 
     const rotate = (point, angle) => {
@@ -22,11 +22,11 @@ const Loading = () => {
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
-        canvas.width = w;
-        canvas.height = h;
+        canvas.width = size;
+        canvas.height = size;
 
         const draw = () => {
-            ctx.clearRect(0, 0, w, h);
+            ctx.clearRect(0, 0, size, size);
             ctx.beginPath();
             ctx.lineWidth = 2;
 
@@ -39,8 +39,8 @@ const Loading = () => {
                 if (originalPoints[i + 1]) {
                     const nextRotatedPoint = rotate(originalPoints[i + 1], angle);
 
-                    ctx.moveTo(rotatedPoint.x + w / 2, rotatedPoint.y + h / 2);
-                    ctx.lineTo(nextRotatedPoint.x + w / 2, nextRotatedPoint.y + h / 2);
+                    ctx.moveTo(rotatedPoint.x + size / 2, rotatedPoint.y + size / 2);
+                    ctx.lineTo(nextRotatedPoint.x + size / 2, nextRotatedPoint.y + size / 2);
                 }
 
                 ctx.strokeStyle = `rgb(1, 101, 132, ${1 - i / 100})`;
@@ -54,8 +54,8 @@ const Loading = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <canvas ref={canvasRef} className="" />
+        <div className="flex flex-col items-center justify-center">
+            <canvas ref={canvasRef}/>
             <p className="mb-4 text-gray-700">Loading...</p>
         </div>
     );
