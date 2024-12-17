@@ -21,6 +21,16 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
         setUser(res.data)
     }
 
+    const changeStatus = (project) => {
+        const index = user.projects.findIndex(n => n.id === project.id);
+
+        if (index !== -1) {
+            const updatedProjects = [...user.projects];
+            const status = (updatedProjects[index].status == 'Finished') ? 'Not Finished' : 'Finished'
+            updatedProjects[index] = { ...updatedProjects[index], status: status };
+            setUser({ ...user, projects: updatedProjects });
+        }
+    };
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -42,14 +52,15 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                                 {project.name}
                             </td>
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left align-middle flex items-center justify-between space-x-2">
-                                <span
+                                <button
+                                    onClick={() => { changeStatus(project) }}
                                     className={`text-sm font-semibold ${project.status === 'Finished'
                                         ? 'text-[#3c6e71] dark:text-green-400'
                                         : 'text-[#9a3c3c] dark:text-red-400'
                                         }`}
                                 >
                                     {project.status}
-                                </span>
+                                </button>
                                 <div>
                                     <button
                                         className="px-3 py-1 text-sm text-white bg-green-500 hover:bg-blue-900 dark:bg-green-700 dark:hover:bg-blue-900 rounded-md"
@@ -103,7 +114,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                 >
                     {t("projectList.newProject")}
                 </button>
-                {loading && <Loading size={50}/>}
+                {loading && <Loading size={50} />}
             </div>
         </div>
     )
