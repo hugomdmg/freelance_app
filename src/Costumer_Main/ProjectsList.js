@@ -9,9 +9,11 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
     const { t } = useTranslation()
     const [loading, setLoading] = useState(false)
     const deleteProject = async (project) => {
+        setLoading(true)
         const data = { project: project, email: user.email }
         const res = await api.post('/delete-project', data)
         setUser(res.data)
+        setLoading(false)
     }
 
     const createProject = async () => {
