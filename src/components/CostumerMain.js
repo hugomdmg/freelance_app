@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Chat from '../shared/Chat';
-import Dates from '../shared/Calendar';
-import ProjectsList from './ProjectsList';
-import ProjectDetails from './ProjectDetails';
+import Chat from './shared/Chat';
+import Dates from './shared/Calendar';
+import ProjectsList from './shared/ProjectsList';
+import ProjectDetails from './shared/ProjectDetails';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const CostumerMain = () => {

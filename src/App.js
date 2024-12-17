@@ -1,12 +1,12 @@
-import Dashboard from './Dashboard';
-import Login from './Login';
-import NavBar from './Bar/NavBar';
+import Dashboard from './components/Dashboard';
+import Login from './components/Login';
+import NavBar from './components/Bar/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CostumerMain from './Costumer_Main/CostumerMain';
-import "./Bar/i18n";
-import PaymentPage from './Payment';
-import AdminMain from './Admin_Main/AdminMain'
-import Signup from './Singup';
+import CostumerMain from './components/CostumerMain';
+import "./components/Bar/i18n";
+import PaymentPage from './components/Payment';
+import AdminMain from './components/Admin_Main/AdminMain'
+import Signup from './components/Singup';
 import { useState } from 'react';
 
 function App() {

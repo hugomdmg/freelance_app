@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import API from '../infraestructure/api';
+import API from '../../infraestructure/api';
 
 const Chat = ({ user1, user2 }) => {
   const [messages, setMessages] = useState([]);

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import API from '../infraestructure/api';
+import API from '../../infraestructure/api';
 import Dates from '../shared/Calendar';
 import Chat from '../shared/Chat';
-import ProjectsList from '../Costumer_Main/ProjectsList';
+import ProjectsList from '../shared/ProjectsList';
 import CostsumersList from './CostumersList';
-import ProjectDetails from '../Costumer_Main/ProjectDetails';
+import ProjectDetails from '../shared/ProjectDetails';
 
 const AdminMain = () => {
     const [users, setUsers] = useState([]);
