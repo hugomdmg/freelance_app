@@ -1,20 +1,25 @@
 import API from "../infraestructure/api";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
+import Loading from "../shared/Loading";
+import { useState } from "react";
 
 const api = new API()
 
 const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProject, edit, setEdit }) => {
     const { t } = useTranslation()
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
 
     const saveProject = async () => {
+        setLoading(true)
         const data = { project: selectedProject, email: user.email }
         const res = await api.post('/update-project', data)
 
         setUser(res.data)
         setEdit(false)
+        setLoading(false)
     }
-    const navigate = useNavigate();
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -96,7 +101,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                                     ${selectedProject.missingPayment}{' '}
                                     {!admin &&
                                         (<button
-                                            onClick={() => { navigate('/payment', { state: { selectedProject: selectedProject, user:user } }); }}
+                                            onClick={() => { navigate('/payment', { state: { selectedProject: selectedProject, user: user } }); }}
                                             className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-blue-600 dark:hover:bg-blue-700 transition"
                                             href="/payment"
                                         >
@@ -164,19 +169,25 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                 </tbody>
             </table>
             {edit && (
-                <button
-                    className="flex items-center px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
-                    onClick={async () => { saveProject() }}
-                >
-                    <svg
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        className="w-5 h-5 mr-2"
+                <div className="flex items-center gap-4">
+                    <button
+                        className="h-10 flex items-center justify-center h-12 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
+                        onClick={async () => {
+                            await saveProject();
+                        }}
                     >
-                        <path d="M17 3H7C5.895 3 5 3.895 5 5v14c0 1.105.895 2 2 2h10c1.105 0 2-.895 2-2V5c0-1.105-.895-2-2-2zm-5 16c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm3-10H8V6h7v3z" />
-                    </svg>
-                    Guardar
-                </button>
+                        <svg
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            className="w-5 h-5 mr-2"
+                        >
+                            <path d="M17 3H7C5.895 3 5 3.895 5 5v14c0 1.105.895 2 2 2h10c1.105 0 2-.895 2-2V5c0-1.105-.895-2-2-2zm-5 16c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm3-10H8V6h7v3z" />
+                        </svg>
+                        Guardar
+                    </button>
+
+                    {loading && <Loading size={50} />}
+                </div>
             )}
 
         </div>

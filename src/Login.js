@@ -107,7 +107,7 @@ const Login = ({ setUser }) => {
       <p className="text-red-500 px-4 py-2 rounded-md text-center">
         {alert}
       </p>
-      {loading && (<Loading size={40}/>)}
+      {loading && (<Loading size={120}/>)}
     </div>
   );
 };
