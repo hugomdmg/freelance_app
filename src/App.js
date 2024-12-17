@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CostumerMain from './Costumer_Main/CostumerMain';
 import "./Bar/i18n";
 import PaymentPage from './Payment';
-import NewProject from './NewProject';
 import AdminMain from './Admin_Main/AdminMain'
 import Signup from './Singup';
 import { useState } from 'react';
@@ -23,7 +22,6 @@ const [user, setUser] = useState(null)
             <Route path='/login' element={<Login setUser={setUser}/>} />
             <Route path='/costumer-main' element={<CostumerMain />} />
             <Route path='/payment' element={<PaymentPage />} />
-            <Route path='/new-project' element={<NewProject />} />
             <Route path='/admin-main' element={<AdminMain />} />
             <Route path='/signup' element={<Signup />} />
           </Routes>
