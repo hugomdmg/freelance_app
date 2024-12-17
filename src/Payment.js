@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 const PaymentPage = () => {
+    const location = useLocation();
+    const { selectedProject } = location.state || {};
+    console.log(selectedProject)
+
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
         cardNumber: "",
         expiryDate: "",
         cvv: "",
+        payment:selectedProject.missingPayment
     });
 
     const handleInputChange = (e) => {
@@ -16,9 +22,9 @@ const PaymentPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Datos enviados:", formData);
         alert("Pago procesado exitosamente!");
     };
+    
 
     return (
         <div className="fixed w-full h-full flex flex-col items-center justify-center bg-[#eaf1ef] dark:bg-gray-900">
@@ -66,7 +72,6 @@ const PaymentPage = () => {
                     />
                 </div>
 
-                {/* Número de tarjeta */}
                 <div className="mb-4">
                     <label
                         htmlFor="cardNumber"
@@ -126,6 +131,24 @@ const PaymentPage = () => {
                         />
                     </div>
                 </div>
+                <div className="mb-4">
+                    <label
+                        htmlFor="fullName"
+                        className="block text-[#204051] dark:text-gray-300 text-sm font-bold mb-2"
+                    >
+                        Ingreso a realizar
+                    </label>
+                    <input
+                        type="text"
+                        id="payment"
+                        name="payment"
+                        value={formData.payment}
+                        onChange={handleInputChange}
+                        placeholder=""
+                        required
+                        className="w-full px-3 py-2 text-[#204051] dark:text-gray-200 bg-[#f5f7f6] dark:bg-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500 focus:border-transparent"
+                    />
+                </div> 
 
                 {/* Botón de pago */}
                 <button

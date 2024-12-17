@@ -47,7 +47,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                                 </span>
                                 <div>
                                     <button
-                                        className="px-3 py-1 text-sm text-white bg-green-900 hover:bg-blue-900 dark:bg-green-700 dark:hover:bg-blue-900 rounded-md"
+                                        className="px-3 py-1 text-sm text-white bg-green-500 hover:bg-blue-900 dark:bg-green-700 dark:hover:bg-blue-900 rounded-md"
                                         onClick={() => { setEdit(false); setSelectedProject(project) }}
                                     >
                                         <svg
@@ -60,7 +60,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                                     </button>
 
                                     <button
-                                        className="px-3 py-1 text-sm text-white bg-yellow-900 hover:bg-blue-900 dark:bg-yellow-700 dark:hover:bg-blue-900 rounded-md"
+                                        className="px-3 py-1 text-sm text-white bg-yellow-500 hover:bg-blue-900 dark:bg-yellow-700 dark:hover:bg-blue-900 rounded-md"
                                         onClick={async () => { setEdit(true); setSelectedProject(project) }}
                                     >
                                         <svg
@@ -83,7 +83,6 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                                         >
                                             <path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m4 0v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6h16zm5-4H3v2h18V2z" />
                                         </svg>
-
                                     </button>
                                 </div>
                             </td>

@@ -10,7 +10,7 @@ const Language = () => {
             <button
                 onClick={() => changeLanguage("en")}
                 className={`px-1 py-0 ${i18n.language === "en"
-                    ? "bg-[#2c5558] text-white" // Estilo para botón seleccionado
+                    ? "bg-[#2c5558] text-white"
                     : "bg-gray-800 text-[#d7e9e3] hover:bg-[#2c5558]"
                     }`}
             >

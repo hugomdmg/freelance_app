@@ -1,10 +1,11 @@
 import API from "../infraestructure/api";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
 
 const api = new API()
 
 const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProject, edit, setEdit }) => {
-    const {t} = useTranslation()
+    const { t } = useTranslation()
 
     const saveProject = async () => {
         const data = { project: selectedProject, email: user.email }
@@ -13,6 +14,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
         setUser(res.data)
         setEdit(false)
     }
+    const navigate = useNavigate();
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -61,7 +63,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                        {t("projectDetails.nextMeeting")}
+                            {t("projectDetails.nextMeeting")}
                         </td>
                         {!edit ? (
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
@@ -86,19 +88,20 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                        {t("projectDetails.pendingPayment")}
+                            {t("projectDetails.pendingPayment")}
                         </td>
                         {(!edit || !admin) ?
                             (
                                 <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
                                     ${selectedProject.missingPayment}{' '}
                                     {!admin &&
-                                        (<a
+                                        (<button
+                                            onClick={() => { navigate('/payment', { state: { selectedProject: selectedProject } }); }}
                                             className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] dark:bg-blue-600 dark:hover:bg-blue-700 transition"
                                             href="/payment"
                                         >
-                            {t("projectDetails.makePayment")}
-                            </a>)}
+                                            {t("projectDetails.makePayment")}
+                                        </button>)}
                                 </td>
                             )
                             :
@@ -118,7 +121,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                        {t("projectDetails.totalPaid")}
+                            {t("projectDetails.totalPaid")}
                         </td>
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
                             ${selectedProject.totalPaid}
@@ -126,7 +129,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     </tr>
                     <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
                         <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
-                        {t("projectDetails.trelloLink")}
+                            {t("projectDetails.trelloLink")}
                         </td>
                         {!edit ? (
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600">

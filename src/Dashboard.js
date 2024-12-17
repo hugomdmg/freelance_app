@@ -18,23 +18,14 @@ const Dashboard = () => {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: 'rgba(0, 26, 46, 0.7)'
+,
     zIndex: 0,
   };
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen p-4" style={img}>
       <div style={overlayStyle}></div>
-
-      {/* Welcome Section */}
-      <div className="text-center mb-12 text-gray-100 dark:text-blue-300 relative z-1">
-        <h1 className="text-6xl font-bold mb-6">{t("dashboard.welcome")}</h1>
-        <p className="text-justify text-2xl leading-relaxed">
-          {t("dashboard.intro")}
-        </p>
-      </div>
-
-      {/* Pricing Section */}
       <div className="flex flex-col lg:flex-row text-center lg:text-left gap-12 items-start relative z-1">
         {/* Pricing Table */}
         <div className="w-full bg-[#3c6e71] dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
@@ -71,11 +62,14 @@ const Dashboard = () => {
 
         {/* Service Description */}
         <div className="w-full lg:w-2/3 text-gray-100 dark:text-blue-300 text-2xl space-y-6 text-justify">
+          <p className="text-justify text-2xl leading-relaxed">
+            {t("dashboard.intro")}
+          </p>
           <p>
             {t('dashboard.explain1')}
           </p>
           <p>
-          {t('dashboard.explain2')}
+            {t('dashboard.explain2')}
           </p>
         </div>
       </div>
@@ -83,7 +77,7 @@ const Dashboard = () => {
       {/* Contact Section */}
       <div className="text-center mt-16 relative z-1 max-w-3xl">
         <h3 className="text-4xl font-semibold text-gray-100 dark:text-blue-300 mb-6">
-        {t('dashboard.info')}
+          {t('dashboard.info')}
 
         </h3>
         <p className="text-2xl text-gray-100 dark:text-blue-300 mb-6">
