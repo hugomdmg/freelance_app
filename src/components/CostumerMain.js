@@ -19,11 +19,16 @@ const CostumerMain = () => {
 
   }, [user, navigate]);
 
+  if(!user){
+    return null
+  }
+
   return (
     <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
       <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
         {user.projects && (
           <ProjectsList
+            admin={false}
             setSelectedProject={setSelectedProject}
             setEdit={setEdit}
             user={user}

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const api = new API();
 
-const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
+const ProjectsList = ({admin, setSelectedProject, setEdit, user, setUser }) => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
 
@@ -41,24 +41,26 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
     };
 
     const changeStatus = async (project) => {
-        setLoading(true);
-        try {
-            const updatedProjects = [...user.projects];
-            const index = updatedProjects.findIndex(p => p.id === project.id);
-            if (index !== -1) {
-                const status = updatedProjects[index].status === 'Finished' ? 'Not Finished' : 'Finished';
-                updatedProjects[index] = { ...updatedProjects[index], status };
-
-                const res = await api.post('/update-project', { email: user.email, project: updatedProjects[index] });
-
-                if (res.data) {
-                    setUser({ ...user, projects: updatedProjects });
+        if(admin){
+            setLoading(true);
+            try {
+                const updatedProjects = [...user.projects];
+                const index = updatedProjects.findIndex(p => p.id === project.id);
+                if (index !== -1) {
+                    const status = updatedProjects[index].status === 'Finished' ? 'Not Finished' : 'Finished';
+                    updatedProjects[index] = { ...updatedProjects[index], status };
+    
+                    const res = await api.post('/update-project', { email: user.email, project: updatedProjects[index] });
+    
+                    if (res.data) {
+                        setUser({ ...user, projects: updatedProjects });
+                    }
                 }
+            } catch (error) {
+                console.error("Error:", error);
+            } finally {
+                setLoading(false);
             }
-        } catch (error) {
-            console.error("Error:", error);
-        } finally {
-            setLoading(false);
         }
     };
 

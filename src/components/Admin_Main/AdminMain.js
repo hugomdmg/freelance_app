@@ -42,6 +42,7 @@ const AdminMain = () => {
                 <CostsumersList users={costumers} setSelectedCostumer={setSelectedCostumer} />
                 {selectedCostumer && (
                     <ProjectsList
+                        admin={true}
                         setSelectedProject={setSelectedProject}
                         setEdit={setEdit}
                         user={selectedCostumer}
