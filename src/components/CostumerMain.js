@@ -10,17 +10,14 @@ const CostumerMain = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const { user } = useAuth();
+  const { user, authLogin } = useAuth();
 
   useEffect(() => {
     if (!user || user.roll !== "costumer") {
-      navigate('/login'); // Redirigir al login si no hay usuario
+      navigate('/login');
     }
-  }, [user, navigate]);
 
-  if (!user) {
-    return null; // Evita renderizar la página si el usuario no está autenticado
-  }
+  }, [user, navigate]);
 
   return (
     <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
@@ -30,14 +27,14 @@ const CostumerMain = () => {
             setSelectedProject={setSelectedProject}
             setEdit={setEdit}
             user={user}
-            setUser={() => {}}
+            setUser={authLogin}
           />
         )}
         {selectedProject && (
           <ProjectDetails
             admin={false}
             user={user}
-            setUser={() => {}}
+            setUser={authLogin}
             setSelectedProject={setSelectedProject}
             selectedProject={selectedProject}
             edit={edit}

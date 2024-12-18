@@ -3,35 +3,63 @@ import { useTranslation } from 'react-i18next';
 import Loading from "./Loading";
 import { useState } from "react";
 
-const api = new API()
+const api = new API();
 
 const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
-    const { t } = useTranslation()
-    const [loading, setLoading] = useState(false)
+    const { t } = useTranslation();
+    const [loading, setLoading] = useState(false);
+
     const deleteProject = async (project) => {
-        setLoading(true)
-        const data = { project: project, email: user.email }
-        const res = await api.post('/delete-project', data)
-        setUser(res.data)
-        setLoading(false)
-    }
+        setLoading(true);
+        try {
+            const data = { project, email: user.email };
+            const res = await api.post('/delete-project', data);
+
+            if (res.data) {
+                setUser(res.data);
+            }
+        } catch (error) {
+            console.error("Error al eliminar el proyecto:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const createProject = async () => {
-        const res = await api.post('/create-project', user)
-        setUser(res.data)
-    }
+        setLoading(true);
+        try {
+            const res = await api.post('/create-project', user);
+            
+            if (res.data) {
+                setUser(res.data);
+            }
+        } catch (error) {
+            console.error("Error al crear el proyecto:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const changeStatus = async (project) => {
-        setLoading(true)
-        const index = user.projects.findIndex(n => n.id === project.id);
-        if (index !== -1) {
+        setLoading(true);
+        try {
             const updatedProjects = [...user.projects];
-            const status = (updatedProjects[index].status == 'Finished') ? 'Not Finished' : 'Finished'
-            updatedProjects[index] = { ...updatedProjects[index], status: status };
-            await api.post('/update-project', { email: user.email, project: updatedProjects[index] })
-            setUser({ ...user, projects: updatedProjects });
+            const index = updatedProjects.findIndex(p => p.id === project.id);
+            if (index !== -1) {
+                const status = updatedProjects[index].status === 'Finished' ? 'Not Finished' : 'Finished';
+                updatedProjects[index] = { ...updatedProjects[index], status };
+
+                const res = await api.post('/update-project', { email: user.email, project: updatedProjects[index] });
+
+                if (res.data) {
+                    setUser({ ...user, projects: updatedProjects });
+                }
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false)
     };
 
     return (
@@ -45,7 +73,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {user.projects.map((project, index) => (
+                    {user.projects && user.projects.map((project, index) => (
                         <tr
                             key={index}
                             className={`cursor-pointer even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800 hover:bg-[#c9dcd6] dark:hover:bg-gray-700`}
@@ -55,7 +83,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                             </td>
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left align-middle flex items-center justify-between space-x-2">
                                 <button
-                                    onClick={() => { changeStatus(project) }}
+                                    onClick={() => changeStatus(project)}
                                     className={`text-sm font-semibold ${project.status === 'Finished'
                                         ? 'text-[#3c6e71] dark:text-green-400'
                                         : 'text-[#9a3c3c] dark:text-red-400'
@@ -66,7 +94,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                                 <div>
                                     <button
                                         className="px-3 py-1 text-sm text-white bg-green-500 hover:bg-blue-900 dark:bg-green-700 dark:hover:bg-blue-900 rounded-md"
-                                        onClick={() => { setEdit(false); setSelectedProject(project) }}
+                                        onClick={() => { setEdit(false); setSelectedProject(project); }}
                                     >
                                         <svg
                                             fill="currentColor"
@@ -79,7 +107,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
 
                                     <button
                                         className="px-3 py-1 text-sm text-white bg-yellow-500 hover:bg-blue-900 dark:bg-yellow-700 dark:hover:bg-blue-900 rounded-md"
-                                        onClick={async () => { setEdit(true); setSelectedProject(project) }}
+                                        onClick={() => { setEdit(true); setSelectedProject(project); }}
                                     >
                                         <svg
                                             fill="currentColor"
@@ -92,7 +120,7 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
 
                                     <button
                                         className="px-3 py-1 text-sm text-white bg-gray-900 hover:bg-red-900 dark:bg-red-900 dark:hover:bg-red-900 rounded-md"
-                                        onClick={async () => { await deleteProject(project) }}
+                                        onClick={async () => { await deleteProject(project); }}
                                     >
                                         <svg
                                             fill="currentColor"
@@ -107,19 +135,19 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
                         </tr>
                     ))}
                 </tbody>
-
             </table>
+
             <div className="flex mt-4">
                 <button
                     className="h-10 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
-                    onClick={async () => { setLoading(true); await createProject(); setLoading(false) }}
+                    onClick={async () => { setLoading(true); await createProject(); setLoading(false); }}
                 >
                     {t("projectList.newProject")}
                 </button>
                 {loading && <Loading size={50} />}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ProjectsList
+export default ProjectsList;

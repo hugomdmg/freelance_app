@@ -8,7 +8,6 @@ export function AuthProvider({ children }) {
     return storedUser ? JSON.parse(storedUser) : null;
 });
 
-  // Función para manejar el inicio de sesión
   const authLogin = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
