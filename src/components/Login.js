@@ -2,8 +2,12 @@ import { useState } from 'react'
 import API from '../infraestructure/api';
 import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
 import Loading from './shared/Loading';
+import { useAuth } from "../infraestructure/AuthContext";
 
-const Login = ({ setUser }) => {
+
+const Login = () => {
+  const { user, setUser, authLogin } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
@@ -21,12 +25,12 @@ const Login = ({ setUser }) => {
     let response = await api.post('/login', { email: email, password: password });
     if (response.status === 200) {
       if (response.data.roll === 'costumer') {
-        setUser(response.data)
-        navigate('/costumer-main', { state: { user: response.data } });
+        authLogin(response.data)
+        navigate('/costumer-main');
       }
       if (response.data.roll === 'admin') {
-        navigate('/admin-main', { state: { user: response.data } })
-        setUser(response.data)
+        authLogin(response.data)
+        navigate('/admin-main')
       }
     }
     if (response.status === 400) {
@@ -89,7 +93,7 @@ const Login = ({ setUser }) => {
         <button
           type="submit"
           className="w-full bg-[#3c6e71] hover:bg-[#2c5558] text-[#d7e9e3] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-500"
-          onClick={() => { login(); }}
+          onClick={async () => { await login(); }}
         >
           Login
         </button>

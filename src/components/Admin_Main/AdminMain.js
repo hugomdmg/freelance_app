@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import API from '../../infraestructure/api';
 import Dates from '../shared/Calendar';
 import Chat from '../shared/Chat';
 import ProjectsList from '../shared/ProjectsList';
 import CostsumersList from './CostumersList';
 import ProjectDetails from '../shared/ProjectDetails';
+import { useAuth } from '../../infraestructure/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdminMain = () => {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const api = new API();
 
-    const location = useLocation();
-    const user = location.state?.user;
-    const [edit, setEdit] = useState(false)
-
-    const [selectedCostumer, setSelectedCostumer] = useState(null)
-    const [selectedProject, setSelectedProject] = useState(null)
+    const [costumers, setCostumers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [edit, setEdit] = useState(false);
+    const [selectedCostumer, setSelectedCostumer] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
 
     useEffect(() => {
+        if (!user || user.roll !== "admin") {
+            navigate('/login');
+        }
         const fetchUsers = async () => {
             try {
-                const fetchedUsers = await api.get('/users');
-                setUsers(fetchedUsers);
+                setCostumers(await api.get('/users'));
             } catch (err) {
                 console.error("Error fetching users:", err);
             } finally {
@@ -32,33 +34,38 @@ const AdminMain = () => {
         };
 
         fetchUsers();
-    }, []);
-
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center h-screen bg-[#d7e9e3] dark:bg-gray-900">
-                <p className="text-[#3c6e71] dark:text-white text-lg font-bold">
-                    Loading users...
-                </p>
-            </div>
-        );
-    }
+    }, [user, navigate, selectedCostumer]);
 
     return (
         <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
             <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
-                <CostsumersList users={users} setSelectedCostumer={setSelectedCostumer} />
+                <CostsumersList users={costumers} setSelectedCostumer={setSelectedCostumer} />
                 {selectedCostumer && (
-                    <ProjectsList setSelectedProject={setSelectedProject} setEdit={setEdit} user={selectedCostumer} setUser={setSelectedCostumer} />
+                    <ProjectsList
+                        setSelectedProject={setSelectedProject}
+                        setEdit={setEdit}
+                        user={selectedCostumer}
+                        setUser={setSelectedCostumer}
+                    />
                 )}
-                {selectedProject &&
-                    <ProjectDetails admin={true} user={selectedCostumer} setUser={setSelectedCostumer} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit} />}
+                {selectedProject && (
+                    <ProjectDetails
+                        admin={true}
+                        user={selectedCostumer}
+                        setUser={setSelectedCostumer}
+                        setSelectedProject={setSelectedProject}
+                        selectedProject={selectedProject}
+                        edit={edit}
+                        setEdit={setEdit}
+                    />
+                )}
             </div>
             <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
                 <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
                     <Dates dates={selectedProject ? selectedProject.dates : []} />
-                    <Chat user1={user} user2={selectedCostumer} />
+                    {user && selectedCostumer && (
+                        <Chat user1={user} user2={selectedCostumer} />
+                    )}
                 </div>
             </div>
         </div>
@@ -66,3 +73,4 @@ const AdminMain = () => {
 };
 
 export default AdminMain;
+

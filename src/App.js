@@ -7,19 +7,18 @@ import "./components/Bar/i18n";
 import PaymentPage from './components/Payment';
 import AdminMain from './components/Admin_Main/AdminMain'
 import Signup from './components/Singup';
-import { useState } from 'react';
+import { AuthProvider } from './infraestructure/AuthContext';
 
 function App() {
-const [user, setUser] = useState(null)
 
   return (
-    <div>
+    <AuthProvider>
       <BrowserRouter>
-        <NavBar user={user}/>
+        <NavBar />
         <div className="App pt-16">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path='/login' element={<Login setUser={setUser}/>} />
+            <Route path='/login' element={<Login />} />
             <Route path='/costumer-main' element={<CostumerMain />} />
             <Route path='/payment' element={<PaymentPage />} />
             <Route path='/admin-main' element={<AdminMain />} />
@@ -27,7 +26,7 @@ const [user, setUser] = useState(null)
           </Routes>
         </div>
       </BrowserRouter>
-    </div >
+    </AuthProvider>
   );
 }
 

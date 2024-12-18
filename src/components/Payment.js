@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
 import API from '../infraestructure/api.js'
+import { useAuth } from '../infraestructure/AuthContext';
 
 const PaymentPage = () => {
     const location = useLocation();
-    const { selectedProject, user } = location.state || {};
-    console.log(selectedProject)
+    const { user, setUser } = useAuth();
+    const { selectedProject } = location.state || {};
     const api = new API()
 
     const [formData, setFormData] = useState({

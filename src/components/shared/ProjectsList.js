@@ -21,15 +21,17 @@ const ProjectsList = ({ setSelectedProject, setEdit, user, setUser }) => {
         setUser(res.data)
     }
 
-    const changeStatus = (project) => {
+    const changeStatus = async (project) => {
+        setLoading(true)
         const index = user.projects.findIndex(n => n.id === project.id);
-
         if (index !== -1) {
             const updatedProjects = [...user.projects];
             const status = (updatedProjects[index].status == 'Finished') ? 'Not Finished' : 'Finished'
             updatedProjects[index] = { ...updatedProjects[index], status: status };
+            await api.post('/update-project', { email: user.email, project: updatedProjects[index] })
             setUser({ ...user, projects: updatedProjects });
         }
+        setLoading(false)
     };
 
     return (

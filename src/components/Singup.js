@@ -23,7 +23,6 @@ const Signup = () => {
     }
 
     let response = await api.post('/register', { email: email, password: password });
-    console.log(response);
     if (response.status === 201) {
       navigate('/login');
     } else if (response.status === 400) {

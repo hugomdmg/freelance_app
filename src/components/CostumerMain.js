@@ -3,41 +3,59 @@ import Chat from './shared/Chat';
 import Dates from './shared/Calendar';
 import ProjectsList from './shared/ProjectsList';
 import ProjectDetails from './shared/ProjectDetails';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../infraestructure/AuthContext';
 
 const CostumerMain = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [user, setUser] = useState(location.state?.user);
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) {
-      navigate('/');
+    if (!user || user.roll !== "costumer") {
+      navigate('/login'); // Redirigir al login si no hay usuario
     }
   }, [user, navigate]);
 
+  if (!user) {
+    return null; // Evita renderizar la página si el usuario no está autenticado
+  }
 
   return (
     <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
       <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
-        {user?.projects && (
-          <ProjectsList setSelectedProject={setSelectedProject} setEdit={setEdit} user={user} setUser={setUser} />
+        {user.projects && (
+          <ProjectsList
+            setSelectedProject={setSelectedProject}
+            setEdit={setEdit}
+            user={user}
+            setUser={() => {}}
+          />
         )}
-        {selectedProject && <ProjectDetails admin={false} user={user} setUser={setUser} setSelectedProject={setSelectedProject} selectedProject={selectedProject} edit={edit} setEdit={setEdit} />}
+        {selectedProject && (
+          <ProjectDetails
+            admin={false}
+            user={user}
+            setUser={() => {}}
+            setSelectedProject={setSelectedProject}
+            selectedProject={selectedProject}
+            edit={edit}
+            setEdit={setEdit}
+          />
+        )}
       </div>
 
       <div className="flex bg-[#d7e9e3] dark:bg-gray-900 min-h-screen ">
         <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
           <Dates dates={selectedProject ? selectedProject.dates : []} />
-          {user && <Chat user1={user} user2={{ email: process.env.REACT_APP_ADMIN }} />}
+          <Chat user1={user} user2={{ email: process.env.REACT_APP_ADMIN }} />
         </div>
       </div>
     </div>
-
   );
 };
 
 export default CostumerMain;
+
 
