@@ -1,4 +1,4 @@
-import API from "../../infraestructure/api";
+import API from "../../services/api";
 import { useTranslation } from 'react-i18next';
 import Loading from "./Loading";
 import { useState } from "react";

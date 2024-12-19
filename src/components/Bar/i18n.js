@@ -4,21 +4,21 @@ import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
-  .use(HttpApi) // Carga las traducciones desde archivos
-  .use(LanguageDetector) // Detecta el idioma automáticamente
-  .use(initReactI18next) // Inicializa con react-i18next
+  .use(HttpApi)
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    fallbackLng: "en", // Idioma por defecto
-    supportedLngs: ["en", "es"], // Idiomas soportados
+    fallbackLng: "en",
+    supportedLngs: ["en", "es"],
     interpolation: {
-      escapeValue: false, // React ya protege contra XSS
+      escapeValue: false,
     },
     backend: {
-      loadPath: "/locales/{{lng}}/translation.json", // Ruta de los archivos
+      loadPath: "/locales/{{lng}}/translation.json",
     },
     detection: {
       order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag"],
-      caches: ["cookie"], // Dónde guardar el idioma detectado
+      caches: ["cookie"],
     },
   });
 

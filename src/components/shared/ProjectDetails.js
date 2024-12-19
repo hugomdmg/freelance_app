@@ -1,4 +1,4 @@
-import API from "../../infraestructure/api";
+import API from "../../services/api";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
 import Loading from "./Loading";

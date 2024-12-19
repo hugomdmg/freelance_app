@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import API from '../infraestructure/api';
+import API from '../services/api';
 import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
 import Loading from './shared/Loading';
 import { useAuth } from "../infraestructure/AuthContext";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import API from '../../infraestructure/api';
+import API from '../../services/api';
 import Dates from '../shared/Calendar';
 import Chat from '../shared/Chat';
 import ProjectsList from '../shared/ProjectsList';
