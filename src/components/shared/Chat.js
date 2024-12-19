@@ -1,43 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import API from '../../services/api';
+import { getMessages, sendMessage } from '../../services/chats';
 
 const Chat = ({ user1, user2 }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const { t } = useTranslation();
-  const api = new API();
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const send = { user1: user1, user2: user2 }
-        const response = await api.post('/get-messages', send);
-        if (response && response.data.messages) {
-          setMessages(response.data.messages);
-        }
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
-    };
-    const intervalId = setInterval(() => {
-        fetchMessages();
+    const intervalId = setInterval(async () => {
+        setMessages(await getMessages(user1.email, user2.email));
     }, 1000);
 
     return () => clearInterval(intervalId);
   }, [user2]);
 
-  const handleSendMessage = async () => {
-    if (inputMessage.trim() !== '') {
-      const data = {user1:user1, user2:user2, messages:[...messages, { owner: user1.email, message: inputMessage }]}
-      setInputMessage('');
-      await api.post('/send-message', data)
-    }
-  };
 
-  const handleKeyPress = (e) => {
+
+  const handleKeyPress = async (e) => {
     if (e.key === 'Enter') {
-      handleSendMessage();
+      await sendMessage(inputMessage, user1.email, user2.email);
+      setInputMessage('')
     }
   };
 
@@ -75,7 +58,7 @@ const Chat = ({ user1, user2 }) => {
           className="flex-grow p-2 border rounded-lg bg-[#eaf1ef] border-[#a3c4bc] text-[#204051] dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:focus:ring-blue-500"
         />
         <button
-          onClick={handleSendMessage}
+          onClick={()=>{sendMessage(inputMessage, user1.email, user2.email)}}
           className="ml-2 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none dark:bg-blue-500 dark:hover:bg-blue-600"
         >
           {t("chat.send")}

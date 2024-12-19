@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import API from '../../services/api';
 import Dates from '../shared/Calendar';
 import Chat from '../shared/Chat';
 import ProjectsList from '../shared/ProjectsList';
@@ -7,11 +6,11 @@ import CostsumersList from './CostumersList';
 import ProjectDetails from '../shared/ProjectDetails';
 import { useAuth } from '../../infraestructure/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { fetchUsers } from '../../services/users';
 
 const AdminMain = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
-    const api = new API();
 
     const [costumers, setCostumers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,17 +22,7 @@ const AdminMain = () => {
         if (!user || user.roll !== "admin") {
             navigate('/login');
         }
-        const fetchUsers = async () => {
-            try {
-                setCostumers(await api.get('/users'));
-            } catch (err) {
-                console.error("Error fetching users:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUsers();
+        fetchUsers(setCostumers, setLoading);
     }, [user, navigate, selectedCostumer]);
 
     return (

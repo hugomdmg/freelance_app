@@ -3,7 +3,7 @@ import Login from './components/Login';
 import NavBar from './components/Bar/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CostumerMain from './components/CostumerMain';
-import "./components/Bar/i18n";
+import "./components/Bar/languages/i18n";
 import PaymentPage from './components/Payment';
 import AdminMain from './components/Admin_Main/AdminMain'
 import Signup from './components/Singup';
