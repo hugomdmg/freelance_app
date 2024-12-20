@@ -22,7 +22,13 @@ const AdminMain = () => {
         if (!user || user.roll !== "admin") {
             navigate('/login');
         }
-        fetchUsers(setCostumers, setLoading);
+        const fetchAndSetCostumers = async () => {
+            const users = await fetchUsers()
+            setCostumers(users)
+        };
+        setLoading(true)
+        fetchAndSetCostumers();
+        setLoading(false)
     }, [user, navigate, selectedCostumer]);
 
     return (

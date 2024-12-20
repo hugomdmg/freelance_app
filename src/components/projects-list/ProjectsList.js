@@ -46,7 +46,8 @@ const ProjectsList = ({ admin, setSelectedProject, setEdit, user, setUser }) => 
                     className="h-10 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
                     onClick={async () => {
                         setLoading(true);
-                        setUser(await createProject(user));
+                        const updatedUser = await createProject(user)
+                        setUser(updatedUser);
                         setLoading(false);
                     }}
                 >
