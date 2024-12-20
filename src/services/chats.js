@@ -1,14 +1,23 @@
 import api from "./api";
 
+const emptyChat = {
+    user: null,
+    messages: [
+        {
+            owner: null,
+            message: null
+        }
+    ]
+}
+
 export const getMessages = async (user1, user2) => {
     try {
-        const send = { user1: user1, user2: user2 }
-        const response = await api.post('/get-messages', send);
+        const response = await api.post('/get-messages', { user1, user2 });
 
         if (response && response.data.messages) { return (response.data.messages); }
-        if (!response) return []
+        if (!response) return emptyChat.messages
     } catch (error) {
-        return []
+        return emptyChat.messages
     }
 };
 
