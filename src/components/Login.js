@@ -1,18 +1,17 @@
 import { useState } from 'react'
-import API from '../services/api';
-import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
+import { useNavigate } from 'react-router-dom';
 import Loading from './shared/Loading';
 import { useAuth } from "../infraestructure/AuthContext";
+import { login } from '../services/users';
 
 
 const Login = () => {
-  const { user, setUser, authLogin } = useAuth();
+  const { authLogin } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+  const [showPassword, setShowPassword] = useState(false);
   const [alert, setAlert] = useState('');
-  const api = new API();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
 
@@ -20,9 +19,9 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const login = async () => {
+  const init = async () => {
     setLoading(true)
-    let response = await api.post('/login', { email: email, password: password });
+    let response = await login(email, password, authLogin)
     if (response.status === 200) {
       if (response.data.roll === 'costumer') {
         authLogin(response.data)
@@ -93,7 +92,7 @@ const Login = () => {
         <button
           type="submit"
           className="w-full bg-[#3c6e71] hover:bg-[#2c5558] text-[#d7e9e3] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-500"
-          onClick={async () => { await login(); }}
+          onClick={async () => { await init(); }}
         >
           Login
         </button>
@@ -111,7 +110,7 @@ const Login = () => {
       <p className="text-red-500 px-4 py-2 rounded-md text-center">
         {alert}
       </p>
-      {loading && (<Loading size={120}/>)}
+      {loading && (<Loading size={120} />)}
     </div>
   );
 };

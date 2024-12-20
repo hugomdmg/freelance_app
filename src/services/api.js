@@ -1,5 +1,4 @@
 
-
 class API {
     adress = process.env.REACT_APP_API_URL
     //adress = 'https://freelance-api-navy.vercel.app'
@@ -21,8 +20,6 @@ class API {
     }
     
 
-
-
     async post(url, data) {
         try {
             const res = await fetch(this.adress + url, {
@@ -42,11 +39,13 @@ class API {
             return response;
     
         } catch (error) {
-            console.error('Error en la solicitud POST:', error);
+            console.error('Error in POST request:', error);
             return { error: error.message };
         }
     }
     
 }
 
-export default API
+const api = new API()
+
+export default api

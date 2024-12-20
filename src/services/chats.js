@@ -1,5 +1,4 @@
-import API from "./api";
-const api = new API()
+import api from "./api";
 
 export const getMessages = async (user1, user2) => {
     try {

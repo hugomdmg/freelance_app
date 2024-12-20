@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from "react";
 
 const Loading = ({size}) => {
     const canvasRef = useRef(null);
-    // const w = width;
-    // const h = height;
     let angle = 0;
     const originalPoints = [];
     for (let i = 0; i < Math.PI * 2; i += 0.05) {

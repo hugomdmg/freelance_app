@@ -1,68 +1,13 @@
-import API from "../../services/api";
 import { useTranslation } from 'react-i18next';
 import Loading from "./Loading";
 import { useState } from "react";
+import { deleteProject, createProject, changeStatus } from "../../services/projects";
 
-const api = new API();
 
 const ProjectsList = ({admin, setSelectedProject, setEdit, user, setUser }) => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
 
-    const deleteProject = async (project) => {
-        setLoading(true);
-        try {
-            const data = { project, email: user.email };
-            const res = await api.post('/delete-project', data);
-
-            if (res.data) {
-                setUser(res.data);
-            }
-        } catch (error) {
-            console.error("Error al eliminar el proyecto:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const createProject = async () => {
-        setLoading(true);
-        try {
-            const res = await api.post('/create-project', user);
-            
-            if (res.data) {
-                setUser(res.data);
-            }
-        } catch (error) {
-            console.error("Error al crear el proyecto:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const changeStatus = async (project) => {
-        if(admin){
-            setLoading(true);
-            try {
-                const updatedProjects = [...user.projects];
-                const index = updatedProjects.findIndex(p => p.id === project.id);
-                if (index !== -1) {
-                    const status = updatedProjects[index].status === 'Finished' ? 'Not Finished' : 'Finished';
-                    updatedProjects[index] = { ...updatedProjects[index], status };
-    
-                    const res = await api.post('/update-project', { email: user.email, project: updatedProjects[index] });
-    
-                    if (res.data) {
-                        setUser({ ...user, projects: updatedProjects });
-                    }
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            } finally {
-                setLoading(false);
-            }
-        }
-    };
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -85,7 +30,13 @@ const ProjectsList = ({admin, setSelectedProject, setEdit, user, setUser }) => {
                             </td>
                             <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-left align-middle flex items-center justify-between space-x-2">
                                 <button
-                                    onClick={() => changeStatus(project)}
+                                    onClick={async () => {
+                                        if(admin){
+                                            setLoading(true)
+                                            setUser(await changeStatus(project, user))
+                                            setLoading(false)
+                                        }
+                                    }}
                                     className={`text-sm font-semibold ${project.status === 'Finished'
                                         ? 'text-[#3c6e71] dark:text-green-400'
                                         : 'text-[#9a3c3c] dark:text-red-400'
@@ -122,7 +73,12 @@ const ProjectsList = ({admin, setSelectedProject, setEdit, user, setUser }) => {
 
                                     <button
                                         className="px-3 py-1 text-sm text-white bg-gray-900 hover:bg-red-900 dark:bg-red-900 dark:hover:bg-red-900 rounded-md"
-                                        onClick={async () => { await deleteProject(project); }}
+                                        onClick={async () => { 
+                                            setLoading(true);
+                                            setUser(await deleteProject(project, user)); 
+                                            setLoading(false);
+
+                                        }}
                                     >
                                         <svg
                                             fill="currentColor"
@@ -142,7 +98,7 @@ const ProjectsList = ({admin, setSelectedProject, setEdit, user, setUser }) => {
             <div className="flex mt-4">
                 <button
                     className="h-10 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
-                    onClick={async () => { setLoading(true); await createProject(); setLoading(false); }}
+                    onClick={async () => { setLoading(true); await setUser(await createProject(user)); setLoading(false); }}
                 >
                     {t("projectList.newProject")}
                 </button>

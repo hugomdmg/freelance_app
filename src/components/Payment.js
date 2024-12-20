@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
-import API from '../services/api.js'
 import { useAuth } from '../infraestructure/AuthContext';
+import { sendPayment } from "../services/payment.js";
 
 const PaymentPage = () => {
     const location = useLocation();
-    const { user, setUser } = useAuth();
+    const { user } = useAuth();
     const { selectedProject } = location.state || {};
-    const api = new API()
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -27,10 +26,6 @@ const PaymentPage = () => {
         e.preventDefault();
         alert("Pago procesado exitosamente!");
     };
-
-    const sendData = async () => {
-        await api.post('/make-payment', { email: user.email, projectId: selectedProject.id, paymentData: formData })
-    }
 
 
     return (
@@ -159,7 +154,7 @@ const PaymentPage = () => {
 
                 {/* Botón de pago */}
                 <button
-                    onClick={() => { sendData() }}
+                    onClick={() => { sendPayment(user, selectedProject, formData) }}
                     type="submit"
                     className="w-full bg-[#3c6e71] hover:bg-[#2c5558] text-[#d7e9e3] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-500"
                 >

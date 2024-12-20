@@ -1,25 +1,15 @@
-import API from "../../services/api";
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom'; // Importa el hook de navegación
+import { useNavigate } from 'react-router-dom';
 import Loading from "./Loading";
 import { useState } from "react";
+import { updateProject } from "../../services/projects";
 
-const api = new API()
 
 const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProject, edit, setEdit }) => {
     const { t } = useTranslation()
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
 
-    const saveProject = async () => {
-        setLoading(true)
-        const data = { project: selectedProject, email: user.email }
-        const res = await api.post('/update-project', data)
-
-        setUser(res.data)
-        setEdit(false)
-        setLoading(false)
-    }
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -173,7 +163,10 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                     <button
                         className="h-10 flex items-center justify-center h-12 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
                         onClick={async () => {
-                            await saveProject();
+                            setLoading(true)
+                            setUser(await updateProject(selectedProject, user));
+                            setEdit(false)
+                            setLoading(false)
                         }}
                     >
                         <svg

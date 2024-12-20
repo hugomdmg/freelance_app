@@ -1,6 +1,4 @@
-import API from './api'
-
-const api = new API();
+import api from './api'
 
 
 export const fetchUsers = async (setUsers, setLoading) => {
@@ -11,4 +9,17 @@ export const fetchUsers = async (setUsers, setLoading) => {
     } finally {
         setLoading(false);
     }
+};
+
+export const login = async (email, password, authLogin) => {
+    let response = await api.post('/login', { email, password });
+    if (response.status === 200) {
+        authLogin(response.data)
+    }
+    return response
+};
+
+export const signup = async (email, password) => {
+    let response = await api.post('/register', { email, password });
+    return response
 };

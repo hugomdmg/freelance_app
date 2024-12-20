@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import API from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { signup } from '../services/users';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -8,21 +8,20 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [alert, setAlert] = useState('');
-  const api = new API();
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const signup = async () => {
+  const sign = async () => {
     if (password !== confirmPassword) {
       setAlert('Passwords do not match');
       setTimeout(() => { setAlert(''); }, 4000);
       return;
     }
 
-    let response = await api.post('/register', { email: email, password: password });
+    let response = await signup(email, password)
     if (response.status === 201) {
       navigate('/login');
     } else if (response.status === 400) {
@@ -100,7 +99,7 @@ const Signup = () => {
         <button
           type="submit"
           className="w-full bg-[#3c6e71] hover:bg-[#2c5558] text-[#d7e9e3] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3c6e71] focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-500"
-          onClick={() => { signup(); }}
+          onClick={() => { sign(); }}
         >
           Sign Up
         </button>
