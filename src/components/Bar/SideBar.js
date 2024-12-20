@@ -1,10 +1,8 @@
-import { useAuth } from "../../infraestructure/AuthContext.js";
+import { useAuth } from "../../infraestructure/AuthContext";
 import { deleteNotification } from "../../services/notifications.js";
 
 const Sidebar = ({ isSidebarOpen }) => {
   const { user, setUser } = useAuth();
-
- 
 
   return (
     <aside
@@ -15,22 +13,29 @@ const Sidebar = ({ isSidebarOpen }) => {
       <nav className="p-4 space-y-4">
         <p className="text-lg font-semibold">Notificaciones</p>
         <ul className="space-y-2">
-          {user && user.notifications.map((notification) => (
-            <li
-              key={notification.id}
-              className="flex justify-between items-center bg-white dark:bg-gray-800 p-2 rounded-md shadow-md hover:bg-gray-200 dark:hover:bg-gray-700"
-            >
-              <span>
-                <strong>{notification.user}</strong>: {notification.type}
-              </span>
-              <button
-                onClick={async () => setUser(await deleteNotification(user, notification.id))}
-                className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-600"
+          {user && Array.isArray(user.notifications) && user.notifications.length > 0 ? (
+            user.notifications.map((notification) => (
+              <li
+                key={notification.id}
+                className="flex justify-between items-center bg-white dark:bg-gray-800 p-2 rounded-md shadow-md hover:bg-gray-200 dark:hover:bg-gray-700"
               >
-                Eliminar
-              </button>
-            </li>
-          ))}
+                <span>
+                  <strong>{notification.user}</strong>: {notification.type}
+                </span>
+                <button
+                  onClick={async () => {
+                    const updatedUser = await deleteNotification(user, notification.id);
+                    setUser(updatedUser);
+                  }}
+                  className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-600"
+                >
+                  Eliminar
+                </button>
+              </li>
+            ))
+          ) : (
+            <p>No hay notificaciones</p>
+          )}
         </ul>
       </nav>
     </aside>
@@ -38,4 +43,5 @@ const Sidebar = ({ isSidebarOpen }) => {
 };
 
 export default Sidebar;
+
 
