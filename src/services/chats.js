@@ -4,11 +4,10 @@ export const getMessages = async (user1, user2) => {
     try {
         const send = { user1: user1, user2: user2 }
         const response = await api.post('/get-messages', send);
-        if (response && response.data.messages) {
-            return (response.data.messages);
-        }
+        if (response && response.data) {return (response.data.messages);}
+        if (!response.data) return { owner: '', messages: [] }
     } catch (error) {
-        return []
+        return { owner: '', messages: [] }
     }
 };
 
