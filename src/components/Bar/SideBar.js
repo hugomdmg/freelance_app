@@ -6,9 +6,8 @@ const Sidebar = ({ isSidebarOpen }) => {
 
   return (
     <aside
-      className={`fixed top-16 left-0 w-64 h-screen bg-[#eaf1ef] text-[#204051] transform transition-transform duration-300 ease-in-out z-10 dark:text-white dark:bg-gray-900 ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`fixed top-16 left-0 w-64 h-screen bg-[#eaf1ef] text-[#204051] transform transition-transform duration-300 ease-in-out z-10 dark:text-white dark:bg-gray-900 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
     >
       <nav className="p-4 space-y-4">
         <p className="text-lg font-semibold">Notificaciones</p>
@@ -29,7 +28,10 @@ const Sidebar = ({ isSidebarOpen }) => {
                   }}
                   className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-600"
                 >
-                  Eliminar
+                  <svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4">
+                    <path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m4 0v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6h16zm5-4H3v2h18V2z"
+                    />
+                  </svg>
                 </button>
               </li>
             ))

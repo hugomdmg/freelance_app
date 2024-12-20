@@ -21,7 +21,7 @@ const NavBar = () => {
         <>
             <nav className="px-4 flex justify-between fixed w-full bg-[#3c6e71] py-3 shadow-md dark:bg-gray-800 dark:text-white z-10">
                 <div className="hidden md:flex space-x-4 items-center">
-                    {user && (
+                    {(user && user.roll == 'admin') && (
                         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} aria-label="Toggle menu">
                             <svg
                                 className="w-6 h-6 text-[#d7e9e3] dark:text-white"
@@ -72,7 +72,7 @@ const NavBar = () => {
                 </div>
             </nav>
 
-            <Sidebar isSidebarOpen={isSidebarOpen} />
+            {(user && user.roll == 'admin') && (<Sidebar isSidebarOpen={isSidebarOpen} />)}
         </>
     );
 };
