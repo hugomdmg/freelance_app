@@ -11,7 +11,6 @@ import { fetchUsers } from '../../services/users';
 const AdminMain = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
-
     const [costumers, setCostumers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [edit, setEdit] = useState(false);
