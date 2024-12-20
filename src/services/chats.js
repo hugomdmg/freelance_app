@@ -2,12 +2,10 @@ import api from "./api";
 
 export const getMessages = async (user1, user2) => {
     try {
-        const response = null
-        if(user1 && user2){
-            const send = { user1: user1, user2: user2 }
-            response = await api.post('/get-messages', send);
-        }
-        if (response && response.data) {return (response.data.messages);}
+        const send = { user1: user1, user2: user2 }
+        const response = await api.post('/get-messages', send);
+
+        if (response && response.data.messages) { return (response.data.messages); }
         if (!response) return []
     } catch (error) {
         return []
