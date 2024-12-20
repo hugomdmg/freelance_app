@@ -27,7 +27,8 @@ const ManageAccount = () => {
     if (response.status === 200) {
       authLogin(response.data);
       setAlert('Account updated successfully');
-      setTimeout(() => setAlert(''), 4000);
+      setTimeout(() => { setAlert(''); navigate('/login') }
+        , 4000);
     } else {
       setAlert(response.value || 'Error updating account');
       setTimeout(() => setAlert(''), 4000);
