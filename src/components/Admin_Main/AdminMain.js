@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Dates from '../shared/Calendar';
 import Chat from '../shared/Chat';
-import ProjectsList from '../shared/ProjectsList';
+import ProjectsList from '../projects-list/ProjectsList';
 import CostsumersList from './CostumersList';
-import ProjectDetails from '../shared/ProjectDetails';
+import ProjectDetails from '../project-details/ProjectDetails';
 import { useAuth } from '../../infraestructure/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { fetchUsers } from '../../services/users';

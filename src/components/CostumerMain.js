@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Chat from './shared/Chat';
 import Dates from './shared/Calendar';
-import ProjectsList from './shared/ProjectsList';
-import ProjectDetails from './shared/ProjectDetails';
+import ProjectsList from './projects-list/ProjectsList';
+import ProjectDetails from './project-details/ProjectDetails';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../infraestructure/AuthContext';
 

@@ -152,7 +152,6 @@ const PaymentPage = () => {
                     />
                 </div>
 
-                {/* Botón de pago */}
                 <button
                     onClick={() => { sendPayment(user, selectedProject, formData) }}
                     type="submit"
