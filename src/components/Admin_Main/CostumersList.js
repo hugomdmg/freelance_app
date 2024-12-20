@@ -1,4 +1,4 @@
-const CostumersList = ({ users, setSelectedCostumer }) => {
+const CostsumersList = ({ users, setSelectedCostumer }) => {
 
     return (
         <>
@@ -18,12 +18,12 @@ const CostumersList = ({ users, setSelectedCostumer }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((costumer, index) => {
+                    {(Array.isArray(users) ? users : []).map((costumer, index) => {
                         if (costumer.roll !== 'admin') {
-                            let total = 0
+                            let total = 0;
                             costumer.projects.forEach(project => {
-                                if (project.status == 'Not Finished') {
-                                    total++
+                                if (project.status === 'Not Finished') {
+                                    total++;
                                 }
                             });
                             return (
@@ -31,7 +31,6 @@ const CostumersList = ({ users, setSelectedCostumer }) => {
                                     key={index}
                                     className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800 hover:bg-[#c9dcd6] dark:hover:bg-gray-700"
                                     onClick={() => setSelectedCostumer(costumer)}
-
                                 >
                                     <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-[#204051] dark:text-gray-300">
                                         {costumer.email}
@@ -43,14 +42,14 @@ const CostumersList = ({ users, setSelectedCostumer }) => {
                                         {costumer.projects.length}
                                     </td>
                                 </tr>
-                            )
+                            );
                         }
-                    }
-                    )}
+                    })}
                 </tbody>
+
             </table>
         </>
     )
 }
 
-export default CostumersList
+export default CostsumersList
