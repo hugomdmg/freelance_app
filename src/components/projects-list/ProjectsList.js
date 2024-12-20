@@ -2,17 +2,12 @@ import { useTranslation } from 'react-i18next';
 import Loading from "../shared/Loading";
 import { useState } from "react";
 import { ProjectRow } from './Project-row';
+import { createProject } from '../../services/projects';
 
 
 const ProjectsList = ({ admin, setSelectedProject, setEdit, user, setUser }) => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
-
-    const createProject = async () => {
-        setLoading(true);
-        setUser(await createProject(user));
-        setLoading(false);
-    };
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -49,7 +44,11 @@ const ProjectsList = ({ admin, setSelectedProject, setEdit, user, setUser }) => 
             <div className="flex mt-4">
                 <button
                     className="h-10 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
-                    onClick={createProject}
+                    onClick={async () => {
+                        setLoading(true);
+                        setUser(await createProject(user));
+                        setLoading(false);
+                    }}
                 >
                     {t("projectList.newProject")}
                 </button>
