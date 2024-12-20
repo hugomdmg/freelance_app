@@ -13,9 +13,8 @@ export const deleteProject = async (project, user) => {
         const data = { project, email: user.email };
         const res = await api.post('/delete-project', data);
 
-        if (res.data) {
-            return (res.data)
-        }
+        if (res.data) return res.data
+        if (!res.data) return user
     } catch (error) {
         console.error("Error al eliminar el proyecto:", error);
         return user
