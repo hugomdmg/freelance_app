@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Loading from "../shared/Loading";
 import { useState } from "react";
-import { createProject } from "../../services/projects";
 import { ProjectRow } from './Project-row';
 
 

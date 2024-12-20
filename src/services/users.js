@@ -23,3 +23,14 @@ export const signup = async (email, password) => {
     let response = await api.post('/register', { email, password });
     return response
 };
+
+export const updateAccount = async (prevEmail, email, password) => {
+    let response = await api.post('/update-account', { prevEmail, email, password });
+    return response
+};
+
+
+export const deleteAccount = async (email, password) => {
+    let response = await api.post('/delete-account', { email, password });
+    return response
+};

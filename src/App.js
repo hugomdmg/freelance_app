@@ -8,6 +8,7 @@ import PaymentPage from './components/Payment';
 import AdminMain from './components/Admin_Main/AdminMain'
 import Signup from './components/Singup';
 import { AuthProvider } from './infraestructure/AuthContext';
+import ManageAccount from './components/ManageAccount';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             <Route path='/payment' element={<PaymentPage />} />
             <Route path='/admin-main' element={<AdminMain />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/account' element={<ManageAccount />} />
           </Routes>
         </div>
       </BrowserRouter>
