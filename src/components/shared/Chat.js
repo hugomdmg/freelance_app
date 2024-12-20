@@ -9,7 +9,9 @@ const Chat = ({ user1, user2 }) => {
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      setMessages(await getMessages(user1.email, user2.email));
+      if(user1 && user2){
+        setMessages(await getMessages(user1.email, user2.email));
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
