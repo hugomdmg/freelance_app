@@ -1,4 +1,4 @@
-const CostsumersList = ({ users, setSelectedCostumer }) => {
+const CostumersList = ({ users, setSelectedCostumer }) => {
 
     return (
         <>
@@ -53,4 +53,4 @@ const CostsumersList = ({ users, setSelectedCostumer }) => {
     )
 }
 
-export default CostsumersList
+export default CostumersList

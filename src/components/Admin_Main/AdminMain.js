@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Dates from '../shared/Calendar';
 import Chat from '../shared/Chat';
 import ProjectsList from '../projects-list/ProjectsList';
-import CostsumersList from './CostumersList';
+import CostumersList from './CostumersList';
 import ProjectDetails from '../project-details/ProjectDetails';
 import { useAuth } from '../../infraestructure/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ const AdminMain = () => {
     return (
         <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
             <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
-                <CostsumersList users={costumers} setSelectedCostumer={setSelectedCostumer} />
+                <CostumersList users={costumers} setSelectedCostumer={setSelectedCostumer} />
                 {selectedCostumer && (
                     <ProjectsList
                         admin={true}
