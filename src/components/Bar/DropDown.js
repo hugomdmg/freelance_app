@@ -1,4 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
+
 export const DropDown = ({user, setDropdownOpen, handleNavigation, logout}) => {
+        const navigate = useNavigate();
+    
     return (
     <div
         className="absolute right-0 mt-2 bg-white dark:bg-gray-700 rounded-md shadow-lg"
@@ -25,7 +30,7 @@ export const DropDown = ({user, setDropdownOpen, handleNavigation, logout}) => {
             </li>
             <li>
                 <button
-                    onClick={logout}
+                    onClick={()=>{logout(); navigate('/login')}}
                     className="flex items-center px-4 py-2 text-sm text-[#204051] dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
                 >
                     <Icon path="M12 2c1.1 0 2 .9 2 2v4h5v2h-7v7h-2v-7h-7v-2h5v-4c0-1.1.9-2 2-2z" />
