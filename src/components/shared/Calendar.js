@@ -4,9 +4,11 @@ import 'react-calendar/dist/Calendar.css';
 import { useTranslation } from "react-i18next";
 import { updateProject } from '../../services/projects';
 
-const Dates = ({setSelectedProject, setUser, selectedProject, user, dates }) => {
+const Dates = ({ setSelectedProject, setUser, selectedProject, user, dates }) => {
     const [calendarDate, setCalendarDate] = useState(new Date());
     const { i18n } = useTranslation();
+    const { t } = useTranslation();
+
 
     const parseDate = (dateString) => {
         const [day, month, year] = dateString.split('/');
@@ -50,9 +52,10 @@ const Dates = ({setSelectedProject, setUser, selectedProject, user, dates }) => 
             />
 
             {(user && selectedProject) && <div className="mt-4">
-                <button className="text-gray-700 dark:text-gray-200"
+                <button
+                    className="px-1 py-1 m-0.5 bg-transparent dark:text-green-300 text-[#3c6e71] border-2 border-[#3c6e71] rounded-lg hover:bg-green-300 dark:hover:text-black hover:text-black focus:outline-none focus:ring-2 focus:ring-[#204051] transition-all duration-300"
                     onClick={saveMeeting}>
-                    <strong>Marcar meeting:</strong> {calendarDate.toLocaleDateString('es')}
+                    <strong>{t('calendar.saveMeeting')}</strong> {calendarDate.toLocaleDateString('es')}
                 </button>
             </div>}
 

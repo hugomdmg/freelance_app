@@ -55,6 +55,9 @@
       "totalProjects": "Total de Proyectos"
     }
   },
+  "calendar":{
+    "saveMeeting": "Pedir reunión"
+  },
   "sidebar":{
     "notifications":"Notificaciones",
     "noNotifications": "No hay notificaciones"
