@@ -5,16 +5,15 @@ export const fetchUsers = async () => {
     try {
         const response = await api.get('/users');
 
-        // Verificar si la respuesta contiene los datos esperados
         if (response) {
-            return response; // Retornar la lista de usuarios
+            return response
         } else {
             console.warn('No data found in response:', response);
-            return []; // Retornar un array vacío si no hay datos
+            return []
         }
     } catch (err) {
-        console.error("Error fetching users:", err); // Log para la depuración
-        return []; // Retornar un array vacío si ocurre un error
+        console.error("Error fetching users:", err)
+        return [];
     }
 };
 

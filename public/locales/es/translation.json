@@ -28,26 +28,61 @@
       }
     }
   },
-
   "projectList": {
     "title": "Lista de proyectos",
     "projectName": "Nombre del proyecto",
     "status": "Estado",
     "newProject": "Crear proyecto"
   },
-
   "projectDetails": {
     "productionLink": "Enlace de producción",
-    "nextMeeting": "Próxima reunión",
+    "nextMeeting": "Próximas reuniones",
     "pendingPayment": "Pago pendiente",
     "totalPaid": "Total pagado",
     "trelloLink": "Enlace de Trello",
     "makePayment": "Hacer pago"
   },
-
   "chat": {
     "send": "Enviar",
     "type": "Escribe tu mensaje...",
     "noMessage": "Aún no hay mensajes."
+  },
+  "costumersList": {
+    "title": "Lista de Usuarios",
+    "headers": {
+      "email": "Correo Electrónico",
+      "pendingProjects": "Proyectos Pendientes",
+      "totalProjects": "Total de Proyectos"
+    }
+  },
+  "sidebar":{
+    "notifications":"Notificaciones",
+    "noNotifications": "No hay notificaciones"
+  },
+  "introduction": {
+    "title": "Bienvenido a mi Proyecto de Gestión de Clientes y Proyectos Web",
+    "description": "Esta es una página web diseñada para facilitar la colaboración entre clientes y programadores en el desarrollo de proyectos web. La aplicación ofrece funcionalidades específicas dependiendo del tipo de usuario:",
+    "clientFeaturesTitle": "Funciones para Clientes",
+    "clientFeatures": [
+      "Gestión de Proyectos: Administrar proyectos de páginas web, seguir avances y consultar el estado actual.",
+      "Chat Integrado: Comunicación directa con el programador.",
+      "Planificación de Reuniones: Herramienta para coordinar actividades con el programador.",
+      "Seguimiento en Tiempo Real: Consultar actualizaciones sobre el proyecto."
+    ],
+    "programmerFeaturesTitle": "Funciones para Programadores",
+    "programmerFeatures": [
+      "Gestión de Clientes: Administrar una lista de clientes y sus proyectos.",
+      "Chat Integrado: Comunicación fluida con los clientes.",
+      "Notificaciones: Sistema para mantenerse actualizado sobre eventos importantes."
+    ],
+    "technologiesTitle": "Tecnologías Utilizadas",
+    "technologies": [
+      "Frontend: React 18, React Hooks, Tailwind CSS, i18n.",
+      "Backend: Express, MongoDB.",
+      "Herramientas: Nodemon, Docker y Docker Compose."
+    ],
+    "closing": "Este proyecto es un ejemplo de cómo integrar herramientas modernas y prácticas ágiles para construir aplicaciones web orientadas a la colaboración y la productividad. ¡Espero que lo disfrutes y te inspire a trabajar conmigo!",
+    "continueButton": "Continuar",
+    "closeButton": "✖"
   }
 }

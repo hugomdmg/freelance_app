@@ -14,23 +14,25 @@ import Introduction from './components/Introduction';
 function App() {
 
   return (
-    <AuthProvider>
-      <Introduction />
-      <BrowserRouter>
-        <NavBar />
-        <div className="App pt-16">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/costumer-main' element={<CostumerMain />} />
-            <Route path='/payment' element={<PaymentPage />} />
-            <Route path='/admin-main' element={<AdminMain />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/account' element={<ManageAccount />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </AuthProvider>
+    <>
+      <AuthProvider>
+        <BrowserRouter>
+          <Introduction />
+          <NavBar />
+          <div className="App pt-16">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/costumer-main' element={<CostumerMain />} />
+              <Route path='/payment' element={<PaymentPage />} />
+              <Route path='/admin-main' element={<AdminMain />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/account' element={<ManageAccount />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </>
   );
 }
 

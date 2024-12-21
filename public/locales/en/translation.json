@@ -28,27 +28,61 @@
       }
     }
   },
-
-  "projectList":{
+  "projectList": {
     "title": "Projects list",
     "projectName": "Project name",
     "status": "Status",
     "newProject": "New Project"
   },
-
-  "projectDetails":{
+  "projectDetails": {
     "productionLink": "Production link",
-    "nextMeeting": "Next meeting",
+    "nextMeeting": "Next meetings",
     "pendingPayment": "Pending payment",
     "totalPaid": "Total paid",
     "trelloLink": "Trello link",
     "makePayment": "Make payment"
-
   },
-
-  "chat":{
+  "chat": {
     "send": "send",
     "type": "Type your message...",
     "noMessage": "No messages yet."
+  },
+  "costumersList": {
+    "title": "User List",
+    "headers": {
+      "email": "Email",
+      "pendingProjects": "Pending projects",
+      "totalProjects": "Total projects"
+    }
+  },
+  "sidebar":{
+    "notifications":"Notifications",
+    "noNotifications": "No notifications"
+  },
+  "introduction": {
+    "title": "Welcome to my Client and Web Project Management App",
+    "description": "This website is designed to facilitate collaboration between clients and developers in web project development. The app offers specific features depending on the type of user:",
+    "clientFeaturesTitle": "Features for Clients",
+    "clientFeatures": [
+      "Project Management: Manage web page projects, track progress, and check the current status.",
+      "Integrated Chat: Direct communication with the developer.",
+      "Meeting Planning: Tool to coordinate activities with the developer.",
+      "Real-Time Tracking: View updates on the project."
+    ],
+    "programmerFeaturesTitle": "Features for Developers",
+    "programmerFeatures": [
+      "Client Management: Manage a list of clients and their projects.",
+      "Integrated Chat: Smooth communication with clients.",
+      "Notifications: Stay updated on important events."
+    ],
+    "technologiesTitle": "Technologies Used",
+    "technologies": [
+      "Frontend: React 18, React Hooks, Tailwind CSS, i18n.",
+      "Backend: Express, MongoDB.",
+      "Tools: Nodemon, Docker, and Docker Compose."
+    ],
+    "closing": "This project is an example of how to integrate modern tools and agile practices to build web applications oriented toward collaboration and productivity. I hope you enjoy it and feel inspired to work with me!",
+    "continueButton": "Continue",
+    "closeButton": "✖"
   }
 }

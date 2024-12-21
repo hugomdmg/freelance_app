@@ -1,8 +1,11 @@
 import { useAuth } from "../../infraestructure/AuthContext";
 import { deleteNotification } from "../../services/notifications.js";
+import { useTranslation } from 'react-i18next';
+
 
 const Sidebar = ({ isSidebarOpen }) => {
   const { user, setUser } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <aside
@@ -10,7 +13,7 @@ const Sidebar = ({ isSidebarOpen }) => {
         }`}
     >
       <nav className="p-4 space-y-4">
-        <p className="text-lg font-semibold">Notificaciones</p>
+        <p className="text-lg font-semibold">{t('sidebar.notifications')}</p>
         <ul className="space-y-2">
           {user && Array.isArray(user.notifications) && user.notifications.length > 0 ? (
             user.notifications.map((notification) => (
@@ -36,7 +39,7 @@ const Sidebar = ({ isSidebarOpen }) => {
               </li>
             ))
           ) : (
-            <p>No hay notificaciones</p>
+            <p>{t('sidebar.noNotifications')}</p>
           )}
         </ul>
       </nav>
