@@ -27,6 +27,15 @@ const Introduction = () => {
 
           <div className="text-lg text-gray-700 dark:text-gray-300 mb-8">
             <p className="mb-4">{t("introduction.description")}</p>
+            <div className="mt-8 p-4 bg-yellow-300 text-[#204051] dark:bg-yellow-600 dark:text-white rounded-md">
+              <h3 className="font-semibold text-xl">{t("introduction.importantInfoTitle")}</h3>
+              <p>{t("introduction.importantInfoDescription")}</p>
+              <ul className="list-inside list-disc">
+                <li className="text-red-700 text-lg font-bold">{t("introduction.clientUser")}</li>
+                <li className="text-red-700 text-lg font-bold">{t("introduction.adminUser")}</li>
+              </ul>
+              <p>{t("introduction.createUser")}</p>
+            </div>
             <h3 className="text-2xl font-semibold text-[#204051] dark:text-white mb-3">
               {t("introduction.clientFeaturesTitle")}
             </h3>
@@ -59,8 +68,9 @@ const Introduction = () => {
             </ul>
             <p>{t("introduction.closing")}</p>
           </div>
-          <button onClick={handleClose} className="absolute top-4 right-4">
-            {t("introduction.closeButton")}
+
+          <button onClick={handleClose} className="absolute top-4 right-4 text-lg">
+            X
           </button>
           <div className="flex justify-center">
             <button
