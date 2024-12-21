@@ -9,11 +9,14 @@ import AdminMain from './components/Admin_Main/AdminMain'
 import Signup from './components/Singup';
 import { AuthProvider } from './infraestructure/AuthContext';
 import ManageAccount from './components/ManageAccount';
+import Introduction from './components/Introduction';
 
 function App() {
 
   return (
     <AuthProvider>
+            <Introduction />
+
       <BrowserRouter>
         <NavBar />
         <div className="App pt-16">

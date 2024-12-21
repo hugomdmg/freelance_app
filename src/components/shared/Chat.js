@@ -28,18 +28,19 @@ const Chat = ({ user1, user2 }) => {
 
   return (
     <div className="flex flex-col bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold text-[#204051] dark:text-gray-200 mb-4">Chat</h2>
-      <div className="h-80 overflow-y-auto bg-[#eaf1ef] dark:bg-gray-700 rounded-md p-4 space-y-3 mb-4">
+      <h2 className="text-2xl font-bold text-[#204051] dark:text-gray-200 mb-4"></h2>
+
+      <div className="h-80 flex flex-col-reverse overflow-y-auto bg-[#eaf1ef] dark:bg-gray-700 rounded-md p-2">
         {messages.length === 0 ? (
           <p className="text-[#9a3c3c] dark:text-gray-400 text-center">{t("chat.noMessage")}</p>
         ) : (
-          messages.map((message, index) => (
+          messages.slice().reverse().map((message, index) => (
             <div
               key={index}
               className={`flex ${message.owner === user1.email ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-xs px-4 py-2 rounded-lg ${message.owner === user1.email
+                className={`mb-2 max-w-xs px-4 py-2 rounded-lg ${message.owner === user1.email
                   ? 'bg-[#3c6e71] text-[#d7e9e3]'
                   : 'bg-[#a3c4bc] text-[#204051] dark:bg-gray-600 dark:text-gray-200'
                   }`}
