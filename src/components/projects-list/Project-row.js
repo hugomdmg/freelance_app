@@ -12,6 +12,7 @@ export const ProjectRow = ({ project, admin, setSelectedProject, setEdit, user, 
 
     const handleDelete = async () => {
         setLoading(true);
+        setSelectedProject(null)
         const updatedUser = await deleteProject(project, user)
         setUser(updatedUser);
         setLoading(false);

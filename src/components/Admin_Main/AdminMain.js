@@ -47,7 +47,7 @@ const AdminMain = () => {
         setLoading(true)
         fetchAndSetCostumers();
         setLoading(false)
-    }, [user, navigate, selectedCostumer, selectedProject]);
+    }, [ navigate, selectedCostumer, selectedProject]);
 
     return (
         <div className="flex p-4 bg-[#d7e9e3] dark:bg-gray-900 min-h-screen gap-4">
@@ -78,7 +78,7 @@ const AdminMain = () => {
                 <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
                     <Dates 
                     setSelectedProject={setSelectedProject}
-                    selectedProject={selectedProject ? selectedProject : []} 
+                    selectedProject={selectedProject ? selectedProject : null} 
                     user={selectedCostumer} 
                     dates={selectedProject ? selectedProject.dates : allDates} 
                     setUser={setSelectedCostumer}

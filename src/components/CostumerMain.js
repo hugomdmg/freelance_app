@@ -65,7 +65,7 @@ const CostumerMain = () => {
         <div className="flex-1 bg-[#eaf1ef] dark:bg-gray-800 shadow-md rounded-lg p-6">
           <Dates
             setSelectedProject={setSelectedProject}
-            selectedProject={selectedProject ? selectedProject : []}
+            selectedProject={selectedProject ? selectedProject : null}
             user={user}
             dates={selectedProject ? selectedProject.dates : allDates}
             setUser={setUser}

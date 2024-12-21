@@ -10,22 +10,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
     const { t } = useTranslation()
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
-    const formatDates = selectedProject.dates
-        .map(date => {
-            const [day, month, year] = date.split('/');
-            const formattedDate = new Date(year, month - 1, day);
-            return formattedDate;
-        })
-        .filter(date => date !== null)
-        .sort((a, b) => a - b)
-        .map(date => {
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-
-            return `${day}/${month}/${year}`;
-        })
-        .join('     ');
+    const formatDates = selectedProject.dates.join(' .. ');
 
     const deleteDate = async (date) => {
         const index = selectedProject.dates.indexOf(date)
@@ -71,7 +56,7 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                                         return (
                                             <button
                                                 key={index}
-                                                className="px-1 py-1 m-0.5 bg-transparent text-[#3c6e71] border-2 border-[#3c6e71] rounded-lg hover:bg-red-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#204051] transition-all duration-300"
+                                                className="px-1 py-1 m-0.5 bg-transparent dark:text-gray-300 text-[#3c6e71] border-2 border-[#3c6e71] rounded-lg hover:bg-red-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#204051] transition-all duration-300"
                                                 onClick={() => { deleteDate(date) }}>
                                                 {date}
                                             </button>

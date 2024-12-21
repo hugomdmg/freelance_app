@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import { useTranslation } from "react-i18next";
 import { updateProject } from '../../services/projects';
 
-const Dates = ({ setUser, setSelectedProject, selectedProject, user, dates }) => {
+const Dates = ({setSelectedProject, setUser, selectedProject, user, dates }) => {
     const [calendarDate, setCalendarDate] = useState(new Date());
     const { i18n } = useTranslation();
 
@@ -26,13 +26,15 @@ const Dates = ({ setUser, setSelectedProject, selectedProject, user, dates }) =>
     };
 
     const saveMeeting = async () => {
-        const index = user.projects.findIndex((project) => selectedProject.id === project.id);
-        user.projects[index].dates.push(calendarDate.toLocaleDateString('es'))
-        setSelectedProject(user.projects[index])
-        const updatedUser = await updateProject(selectedProject, user)
-        setUser(updatedUser);
-
-        setCalendarDate(new Date())
+        if (selectedProject) {
+            const index = user.projects.findIndex((project) => selectedProject.id === project.id);
+            const updatedProject = user.projects[index]
+            updatedProject.dates.push(calendarDate.toLocaleDateString('es'))
+            const updatedUser = await updateProject(updatedProject, user)
+            setUser(updatedUser)
+            setSelectedProject(updatedProject)
+            setCalendarDate(new Date())
+        }
     }
 
     return (
@@ -47,7 +49,7 @@ const Dates = ({ setUser, setSelectedProject, selectedProject, user, dates }) =>
                 tileClassName={highlightDates}
             />
 
-            {user && <div className="mt-4">
+            {(user && selectedProject) && <div className="mt-4">
                 <button className="text-gray-700 dark:text-gray-200"
                     onClick={saveMeeting}>
                     <strong>Marcar meeting:</strong> {calendarDate.toLocaleDateString('es')}
