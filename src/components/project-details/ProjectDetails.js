@@ -10,7 +10,31 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
     const { t } = useTranslation()
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+    const formatDates = selectedProject.dates
+        .map(date => {
+            const [day, month, year] = date.split('/');
+            const formattedDate = new Date(year, month - 1, day);
+            return formattedDate;
+        })
+        .filter(date => date !== null)
+        .sort((a, b) => a - b)
+        .map(date => {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
 
+            return `${day}/${month}/${year}`;
+        })
+        .join('     ');
+
+    const deleteDate = async (date) => {
+        const index = selectedProject.dates.indexOf(date)
+        selectedProject.dates.splice(index, 1)
+        setLoading(true)
+        const updatedUser = await updateProject(selectedProject, user)
+        setUser(updatedUser)
+        setLoading(false)
+    }
 
     return (
         <div className="flex-1 bg-[#d7e9e3] dark:bg-gray-800 shadow-md rounded-lg p-8">
@@ -35,16 +59,37 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                         onChange={(value) => setSelectedProject({ ...selectedProject, link: value })}
                         link
                     />
-                    <TableRow
-                        label={t("projectDetails.nextMeeting")}
-                        value={selectedProject.dates[0]}
-                        isEditable={edit}
-                        onChange={(value) => {
-                            const updatedDates = [...selectedProject.dates];
-                            updatedDates[0] = value;
-                            setSelectedProject({ ...selectedProject, dates: updatedDates });
-                        }}
-                    />
+                    {(edit) ?
+                        (
+                            <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
+
+                                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 font-semibold text-[#204051] dark:text-gray-300">
+                                    {t("projectDetails.nextMeeting")}
+                                </td>
+                                <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 dark:text-gray-200">
+                                    {selectedProject.dates.map((date, index) => {
+                                        return (
+                                            <button
+                                                key={index}
+                                                className="px-1 py-1 m-0.5 bg-transparent text-[#3c6e71] border-2 border-[#3c6e71] rounded-lg hover:bg-red-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#204051] transition-all duration-300"
+                                                onClick={() => { deleteDate(date) }}>
+                                                {date}
+                                            </button>
+                                        )
+                                    })}
+
+                                </td>
+                            </tr>
+                        )
+                        :
+                        (
+                            <TableRow
+                                label={t("projectDetails.nextMeeting")}
+                                value={formatDates}
+                                isEditable={false}
+                            />
+                        )
+                    }
                     {(!edit || !admin) ?
                         (
                             <tr className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800">
@@ -96,7 +141,8 @@ const ProjectDetails = ({ admin, user, setUser, setSelectedProject, selectedProj
                         className="h-10 flex items-center justify-center h-12 px-4 py-2 bg-[#3c6e71] text-[#d7e9e3] rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#a3c4bc] dark:bg-green-600 dark:text-white dark:hover:bg-green-700 transition duration-200"
                         onClick={async () => {
                             setLoading(true)
-                            setUser(await updateProject(selectedProject, user));
+                            const updatedUser = await updateProject(selectedProject, user)
+                            setUser(updatedUser);
                             setEdit(false)
                             setLoading(false)
                         }}

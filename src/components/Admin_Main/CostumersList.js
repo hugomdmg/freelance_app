@@ -1,12 +1,9 @@
-const CostsumersList = ({ users, setSelectedCostumer }) => {
+const CostsumersList = ({ users, setSelectedCostumer, setSelectedProject }) => {
 
     return (
         <>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold text-[#3c6e71] dark:text-gray-200">User List</h2>
-                <button className="bg-[#3c6e71] text-[#eaf1ef] font-bold py-2 px-4 rounded-lg hover:bg-[#2c5558] focus:outline-none focus:ring-2 focus:ring-[#3c6e71] dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-500 transition duration-200">
-                    Añadir cliente
-                </button>
             </div>
 
             <table className="w-full border-collapse border border-[#a3c4bc] dark:border-gray-600">
@@ -30,7 +27,10 @@ const CostsumersList = ({ users, setSelectedCostumer }) => {
                                 <tr
                                     key={index}
                                     className="even:bg-[#eaf1ef] dark:even:bg-gray-700 odd:bg-[#d7e9e3] dark:odd:bg-gray-800 hover:bg-[#c9dcd6] dark:hover:bg-gray-700"
-                                    onClick={() => setSelectedCostumer(costumer)}
+                                    onClick={() => {
+                                        setSelectedCostumer(costumer)
+                                        setSelectedProject(null)
+                                    }}
                                 >
                                     <td className="p-2 border border-[#a3c4bc] dark:border-gray-600 text-[#204051] dark:text-gray-300">
                                         {costumer.email}

@@ -15,8 +15,7 @@ function App() {
 
   return (
     <AuthProvider>
-            <Introduction />
-
+      <Introduction />
       <BrowserRouter>
         <NavBar />
         <div className="App pt-16">

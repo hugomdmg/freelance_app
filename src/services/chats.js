@@ -2,12 +2,7 @@ import api from "./api";
 
 const emptyChat = {
     user: null,
-    messages: [
-        {
-            owner: null,
-            message: null
-        }
-    ]
+    messages: []
 }
 
 export const getMessages = async (user1, user2) => {
