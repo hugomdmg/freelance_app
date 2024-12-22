@@ -84,12 +84,14 @@
       "Backend: Express, MongoDB.",
       "Herramientas: Nodemon, Docker y Docker Compose."
     ],
-    "closing": "Este proyecto es un ejemplo de cómo integrar herramientas modernas y prácticas ágiles para construir aplicaciones web orientadas a la colaboración y la productividad. ¡Espero que lo disfrutes y te inspire a trabajar conmigo!",
     "importantInfoTitle": "Información Importante",
     "importantInfoDescription": "Para probar la aplicación, pueden usar usuarios de prueba. Aquí están los detalles de los usuarios de prueba:",
     "adminUser": "El usuario de prueba administrador es: usuario: admin, contraseña: password",
     "clientUser": "El usuario de prueba cliente es: usuario: user@gmail.com, contraseña: password",
     "createUser": "También pueden crear un usuario cliente si lo desean. Los usuarios de prueba vienen con datos para probar.",
+    "githubLink": "Repositorio de GitHub",
+    "linkedinLink": "Perfil de linkedIn",
+    "showIntroRemind": "-> Puedes acceder a esta información en cualquier momento con el boton en la navBar (se oculta en modo light)",
     "continueButton": "continuar"
   }
 }

@@ -8,6 +8,8 @@ export function AuthProvider({ children }) {
     return storedUser ? JSON.parse(storedUser) : null;
 });
 
+const [isVisible, setIsVisible] = useState(!localStorage.getItem("hasSeenIntroduction"))
+
   const authLogin = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -26,7 +28,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, authLogin, logout }}>
+    <AuthContext.Provider value={{ user, setUser, authLogin, logout, isVisible, setIsVisible }}>
       {children}
     </AuthContext.Provider>
   );

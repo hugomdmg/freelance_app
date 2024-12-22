@@ -84,12 +84,14 @@
       "Backend: Express, MongoDB.",
       "Tools: Nodemon, Docker, and Docker Compose."
     ],
-    "closing": "This project is an example of how to integrate modern tools and agile practices to build web applications focused on collaboration and productivity. I hope you enjoy it and get inspired to work with me!",
     "importantInfoTitle": "Important Information",
     "importantInfoDescription": "To test the application, you can use the following test users. Here are the test user details:",
     "adminUser": "The admin test user is: username: admin, password: password",
     "clientUser": "The client test user is: username: user@gmail.com, password: password",
     "createUser": "You can also create a client user if you'd like. The test users come with pre-filled data for testing purposes.",
+    "githubLink": "View GitHub Repository",
+    "linkedinLink": "Visit LinkedIn Profile",
+    "showIntroRemind": "-> You can access this information at any time by clicking the button in the navBar (it is hidden in light mode)",
     "continueButton": "continue"
 
   }

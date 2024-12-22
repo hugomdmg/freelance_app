@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Language from "./Bar/languages/Languages";
 import DarkLightMode from "./Bar/DarkLightMode";
 import { useTranslation } from "react-i18next";
+import { useAuth } from '../infraestructure/AuthContext';
 
 const Introduction = () => {
   const { t } = useTranslation();
-  const hasSeenIntroduction = localStorage.getItem("hasSeenIntroduction");
-  const [isVisible, setIsVisible] = useState(!hasSeenIntroduction);
-
+  const { isVisible, setIsVisible } = useAuth();
   const handleClose = () => {
     setIsVisible(false);
     localStorage.setItem("hasSeenIntroduction", "true");
@@ -24,6 +23,22 @@ const Introduction = () => {
           <h2 className="text-4xl font-bold text-[#204051] dark:text-white mb-6 text-center">
             {t("introduction.title")}
           </h2>
+          <div className="flex justify-center items-center mb-8">
+              <a
+                href="https://github.com/hugomdmg/freelance_full_project"
+                target="_blank"
+                className="text-blue-600 hover:text-blue-800 underline mx-4"
+              >
+                {t("introduction.githubLink")}
+              </a>
+              <a
+                href="https://www.linkedin.com/in/hugo-munoz-de-morales-grado/"
+                target="_blank"
+                className="text-blue-600 hover:text-blue-800 underline mx-4"
+              >
+                {t("introduction.linkedinLink")}
+              </a>
+            </div>
 
           <div className="text-lg text-gray-700 dark:text-gray-300 mb-8">
             <p className="mb-4">{t("introduction.description")}</p>
@@ -35,6 +50,7 @@ const Introduction = () => {
                 <li className="text-red-700 text-lg font-bold">{t("introduction.adminUser")}</li>
               </ul>
               <p>{t("introduction.createUser")}</p>
+              <p className="text-red-700 text-lg font-bold">{t("introduction.showIntroRemind")}</p>
             </div>
             <h3 className="text-2xl font-semibold text-[#204051] dark:text-white mb-3">
               {t("introduction.clientFeaturesTitle")}
@@ -66,7 +82,6 @@ const Introduction = () => {
                 )
               )}
             </ul>
-            <p>{t("introduction.closing")}</p>
           </div>
 
           <button onClick={handleClose} className="absolute top-4 right-4 text-lg">
